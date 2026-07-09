@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useEntrance } from '@/hooks/use-entrance';
 
 type Particle = {
   x: number;
@@ -26,9 +27,12 @@ function createParticle(width: number, height: number): Particle {
 }
 
 export function ParticleBackground() {
+  const ready = useEntrance();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (!ready) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -108,7 +112,7 @@ export function ParticleBackground() {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [ready]);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>

@@ -12,22 +12,20 @@ import { MotionConfig } from "framer-motion";
 
 export default function Home() {
   return (
-    <>
-      <ParticleBackground />
-      <main className="relative z-[1] min-h-screen overflow-x-hidden text-foreground">
-        <ScrollProgress />
-        <MotionConfig reducedMotion="user">
-          <EntranceProvider>
-            <Navbar />
-            <Hero />
-          </EntranceProvider>
-        </MotionConfig>
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
-        <Footer />
-      </main>
-    </>
+    <MotionConfig reducedMotion="user">
+      <EntranceProvider>
+        <ParticleBackground />
+        <main className="relative z-[1] min-h-screen overflow-x-hidden text-foreground">
+          <ScrollProgress />
+          <Navbar />
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Contact />
+          <Footer />
+        </main>
+      </EntranceProvider>
+    </MotionConfig>
   );
 }

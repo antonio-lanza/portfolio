@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Code2, Globe } from 'lucide-react';
 import { useI18n } from '@/i18n/i18n';
 import { useActiveSection } from '@/hooks/use-active-section';
-import { useEntrance } from '@/hooks/use-entrance';
-import { easeOut, navEntrance } from '@/lib/motion';
+import { easeOut } from '@/lib/motion';
 
 const NAV_LINKS = [
   { key: 'about', href: '#about', id: 'about' },
@@ -14,8 +13,6 @@ const NAV_LINKS = [
 ] as const;
 
 export function Navbar() {
-  const ready = useEntrance();
-  const reduceMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
@@ -41,12 +38,7 @@ export function Navbar() {
         isScrolled ? 'border-b border-border bg-background/80 shadow-sm backdrop-blur-md' : 'bg-transparent'
       }`}
     >
-      <motion.div
-        initial={false}
-        animate={ready ? { y: 0 } : { y: -12 }}
-        transition={reduceMotion ? { duration: 0 } : navEntrance}
-        className="gpu-layer mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6 lg:px-8"
-      >
+      <div className="entrance-nav mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6 lg:px-8">
         <a href="#" className="group flex min-w-0 items-center gap-2 text-foreground outline-none">
           <div className="shrink-0 rounded-xl bg-primary/10 p-1.5 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground sm:p-2">
             <Code2 className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -170,7 +162,7 @@ export function Navbar() {
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
-      </motion.div>
+      </div>
 
       <AnimatePresence>
         {mobileMenuOpen && (

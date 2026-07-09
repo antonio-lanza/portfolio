@@ -3,9 +3,9 @@ import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } fr
 import { Github, Linkedin, ArrowRight } from 'lucide-react';
 import { useI18n } from '@/i18n/i18n';
 import { useEntrance } from '@/hooks/use-entrance';
-import { easeOut, heroEntrance } from '@/lib/motion';
+import { easeOut } from '@/lib/motion';
 
-const ROLE_ENABLE_DELAY_MS = 400;
+const ROLE_ENABLE_DELAY_MS = 600;
 const FIRST_ROTATION_MS = 900;
 const ROLE_CYCLE_MS = 2200;
 
@@ -55,6 +55,8 @@ export function Hero() {
         <img
           src={`${import.meta.env.BASE_URL}images/hero-bg.png`}
           alt="Abstract tech background"
+          fetchPriority="high"
+          decoding="async"
           className="h-full w-full object-cover opacity-25 mix-blend-screen"
         />
         <div className="absolute inset-0 bg-linear-to-b from-background/30 via-background/70 to-background" />
@@ -64,12 +66,7 @@ export function Hero() {
       <div className="absolute -right-32 bottom-1/4 hidden h-72 w-72 rounded-full bg-blue-600/20 blur-[120px] mix-blend-screen blob-animation animation-delay-2000 sm:block sm:h-96 sm:w-96" />
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl justify-center">
-        <motion.div
-          initial={false}
-          animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
-          transition={reduceMotion ? { duration: 0 } : heroEntrance}
-          className="flex w-full max-w-5xl flex-col items-center text-center"
-        >
+        <div className="entrance-hero flex w-full max-w-5xl flex-col items-center text-center">
           <div className="mb-6 inline-flex max-w-full items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-primary shadow-lg shadow-primary/5 sm:mb-8 sm:px-4 sm:py-2">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
@@ -122,13 +119,13 @@ export function Hero() {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
 
-            <div className="glass-card flex w-full items-center justify-center gap-4 rounded-full px-5 py-3 sm:w-auto sm:px-6 sm:py-4">
+            <div className="flex w-full items-center justify-center gap-4 rounded-full border border-white/10 bg-card/70 px-5 py-3 sm:w-auto sm:px-6 sm:py-4">
               <SocialLink href="https://github.com/AntonioLanzaDesenvolvedor" icon={<Github className="h-5 w-5" />} />
               <div className="h-6 w-px bg-border" />
               <SocialLink href="https://www.linkedin.com/in/antoniopernoncini/" icon={<Linkedin className="h-5 w-5" />} />
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

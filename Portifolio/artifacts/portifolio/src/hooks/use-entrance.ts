@@ -1,9 +1,37 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode, createElement } from 'react';
 import { useReducedMotion } from 'framer-motion';
 
-const EntranceContext = createContext(true);
+const EntranceContext = createContext(false);
 
-const ENTRANCE_MAX_WAIT_MS = 120;
+const ENTRANCE_MAX_WAIT_MS = 400;
+
+function markEntranceReady(reduced: boolean) {
+  const root = document.documentElement;
+  root.dataset.entranceReady = 'true';
+  if (reduced) root.dataset.entranceReduced = 'true';
+}
+
+function waitForPaint(): Promise<void> {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => resolve());
+    });
+  });
+}
+
+async function waitForEntranceGate(): Promise<void> {
+  const fontsReady =
+    typeof document !== 'undefined' && document.fonts?.ready
+      ? document.fonts.ready.catch(() => undefined)
+      : Promise.resolve();
+
+  await Promise.race([
+    Promise.all([fontsReady, waitForPaint()]).then(() => undefined),
+    new Promise<void>((resolve) => {
+      window.setTimeout(resolve, ENTRANCE_MAX_WAIT_MS);
+    }),
+  ]);
+}
 
 export function EntranceProvider({ children }: { children: ReactNode }) {
   const reduceMotion = useReducedMotion();
@@ -11,51 +39,28 @@ export function EntranceProvider({ children }: { children: ReactNode }) {
   const hasTriggered = useRef(false);
 
   useEffect(() => {
-    if (reduceMotion) {
+    let cancelled = false;
+
+    const finish = (reduced: boolean) => {
+      if (cancelled) return;
+      markEntranceReady(reduced);
       setReady(true);
+    };
+
+    if (reduceMotion === true) {
+      finish(true);
       return;
     }
+
+    if (reduceMotion !== false) return;
 
     if (hasTriggered.current) return;
     hasTriggered.current = true;
 
-    let outerFrame = 0;
-    let innerFrame = 0;
-    let cancelled = false;
-    let timeoutId = 0;
-
-    const finish = () => {
-      if (!cancelled) setReady(true);
-    };
-
-    let finished = false;
-    const runFinish = () => {
-      if (cancelled || finished) return;
-      finished = true;
-      finish();
-    };
-
-    const schedule = () => {
-      outerFrame = requestAnimationFrame(() => {
-        innerFrame = requestAnimationFrame(runFinish);
-      });
-    };
-
-    if (typeof document !== 'undefined' && document.fonts?.ready) {
-      timeoutId = window.setTimeout(schedule, ENTRANCE_MAX_WAIT_MS);
-      void document.fonts.ready.finally(() => {
-        window.clearTimeout(timeoutId);
-        schedule();
-      });
-    } else {
-      schedule();
-    }
+    void waitForEntranceGate().then(() => finish(false));
 
     return () => {
       cancelled = true;
-      cancelAnimationFrame(outerFrame);
-      cancelAnimationFrame(innerFrame);
-      window.clearTimeout(timeoutId);
     };
   }, [reduceMotion]);
 
