@@ -77,3 +77,4 @@ Thumbs.db
 # Cursor/Replit local files
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+.vercel

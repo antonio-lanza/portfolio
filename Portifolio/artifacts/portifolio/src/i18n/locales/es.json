@@ -1,29 +1,36 @@
 {
   "nav": {
-    "about": "Acerca de",
+    "about": "Sobre",
     "skills": "Habilidades",
     "projects": "Proyectos",
     "contact": "Contacto",
     "hireMe": "Contacto"
   },
   "hero": {
-    "badge": "Disponible para oportunidades",
+    "badge": "Disponible para proyectos",
     "name": "Antônio Lanza",
     "roles": [
-      "Desarrollador Frontend",
-      "React",
-      "TypeScript",
-      "Interfaces Web"
+      "Desarrollador Fullstack",
+      "React & Next.js",
+      "Flask & FastAPI",
+      "PostgreSQL & Supabase"
     ],
-    "description": "Desarrollo aplicaciones web con enfoque en rendimiento, código limpio y buena experiencia de usuario. Trabajo con React y TypeScript para construir interfaces estables y escalables.",
+    "description": "Transformo ideas en aplicaciones web rápidas, modernas y escalables.",
     "viewWork": "Ver proyectos"
   },
   "about": {
-    "title": "Acerca de",
-    "subtitle": "Desarrollador frontend con experiencia en aplicaciones web modernas.",
-    "heading": "Enfocado en ejecución, calidad y consistencia.",
-    "description1": "Desarrollo interfaces utilizando React, TypeScript y Tailwind CSS. Tengo experiencia en aplicaciones completas, incluyendo organización de código, arquitectura de componentes e integración con APIs.",
-    "description2": "Mi enfoque es escribir código simple, claro y mantenible. Priorizo soluciones prácticas, evitando complejidad innecesaria y garantizando buen rendimiento. Trabajo bien en equipo y me comunico con claridad.",
+    "title": "Sobre mí",
+    "subtitle": "Desarrollador Full Stack especializado en crear aplicaciones web modernas, escalables y preparadas para producción.",
+    "heading": "Software que impulsa negocios.",
+    "description1": "Desarrollo aplicaciones web completas, landing pages de alta conversión, APIs y sistemas a medida, uniendo rendimiento, escalabilidad y una excelente experiencia para el usuario. Transformo procesos complejos en soluciones simples, confiables y fáciles de evolucionar.",
+    "description2": "Mi experiencia incluye el desarrollo de plataformas, ERPs y soluciones B2B para reclutamiento y selección, gestión empresarial, nutrición animal y pesaje industrial, siempre con foco en entregar software preparado para crecer junto con el negocio.",
+    "card": {
+      "badge": "Full Stack Developer",
+      "identity": "Perfil",
+      "available": "Disponible",
+      "filename": "antonio.profile.ts"
+    },
+    "techTags": ["React", "Next.js", "Python", "PostgreSQL"],
     "stats": {
       "experience": "Años de experiencia",
       "projects": "Proyectos entregados",
@@ -33,34 +40,94 @@
   },
   "skills": {
     "title": "Tecnologías",
-    "subtitle": "Herramientas principales utilizadas en desarrollo.",
+    "subtitle": "Lo que uso en los proyectos de abajo.",
     "categories": {
       "frontend": "Frontend",
-      "ui": "Ingeniería de Interfaces",
-      "tools": "Herramientas y Flujo"
+      "backend": "Backend",
+      "platform": "Lenguajes e Infra"
     },
-    "ui": {
-      "responsive": "Diseño Responsivo",
-      "accessibility": "Accesibilidad",
-      "architecture": "Arquitectura de Componentes",
-      "performance": "Optimización de Rendimiento"
+    "frontend": {
+      "react": "React",
+      "next": "Next.js",
+      "mui": "Material UI",
+      "tailwind": "Tailwind CSS"
     },
-    "tools": {
-      "api": "Integración con APIs"
+    "backend": {
+      "flask": "Flask",
+      "fastapi": "FastAPI",
+      "postgres": "PostgreSQL",
+      "supabase": "Supabase"
+    },
+    "platform": {
+      "typescript": "TypeScript",
+      "python": "Python",
+      "docker": "Docker",
+      "redis": "Redis"
     }
   },
   "projects": {
     "title": "Proyectos",
-    "subtitle": "Proyectos desarrollados con enfoque práctico.",
-    "search": "Buscar proyectos...",
-    "viewOnGithub": "Ver en GitHub",
-    "language": "Tecnologías",
-    "stars": "Stars",
-    "noResults": "No se encontraron proyectos."
+    "subtitle": "Sistemas que construí y mantengo en producción.",
+    "viewImages": "Ver imágenes",
+    "visitSite": "Visitar sitio",
+    "privateRepo": "Repositorio privado",
+    "items": [
+      {
+        "id": "talentista",
+        "title": "Talentista",
+        "eyebrow": "Full Stack · ERP de Reclutamiento y Selección",
+        "period": "2025 — Presente",
+        "description": "ERP SaaS para reclutamiento y selección utilizado en producción. Soy responsable del desarrollo full stack de la plataforma, creando nuevas funcionalidades, evolucionando la arquitectura y manteniendo toda la operación del sistema.",
+        "highlights": [
+          "Desarrollo de la interfaz operacional en React y Material UI.",
+          "APIs REST en Flask con PostgreSQL para gestión de vacantes, candidatos, procesos selectivos, contratos, finanzas y facturación.",
+          "Dashboard con Kanban, métricas y portales para clientes y candidatos.",
+          "Generación automatizada de informes, evaluaciones y currículos en PDF.",
+          "Sistema de autenticación JWT con control de permisos por perfil.",
+          "Pruebas técnicas y conductuales con campañas y enlaces exclusivos por candidato."
+        ],
+        "tags": ["React", "Flask", "PostgreSQL", "Material UI", "Supabase"],
+        "projectUrl": "https://talentista.com"
+      },
+      {
+        "id": "saicon-2n250",
+        "title": "SN250",
+        "eyebrow": "Full Stack · ERP para Confinamiento y Nutrición Animal",
+        "period": "2025 — Presente",
+        "description": "Sistema utilizado en la gestión de confinamientos, desarrollado para controlar toda la operación nutricional del rebaño, desde la planificación de las dietas hasta la ejecución del tratamiento y el análisis de desempeño.",
+        "highlights": [
+          "Desarrollo de la API en FastAPI para reglas de negocio e integraciones.",
+          "Gestión de dietas, lotes, ingredientes, inventario, pesajes y cargas.",
+          "Dashboard con indicadores zootécnicos, costos y consumo por lote.",
+          "Planificación del tratamiento con editor visual y control de materia seca.",
+          "Integración con balanzas, RFID y equipos de campo.",
+          "Arquitectura multi-tenant utilizando PostgreSQL, Redis y Docker."
+        ],
+        "tags": ["React", "FastAPI", "PostgreSQL", "Redis", "Docker"],
+        "projectUrl": ""
+      },
+      {
+        "id": "sn800",
+        "title": "SN800",
+        "eyebrow": "Full Stack · Plataforma de Pesaje Forestal",
+        "period": "2025 — Presente",
+        "description": "Plataforma SaaS multi-tenant para gestión de operaciones de pesaje forestal, desarrollada para centralizar registros, monitoreo operacional, informes e integración en tiempo real con balanzas.",
+        "highlights": [
+          "Desarrollo de la aplicación en Next.js con soporte para PT/EN/ES.",
+          "Landing page institucional y panel administrativo de la plataforma.",
+          "API REST con Route Handlers para registros, dashboards, informes y administración.",
+          "Arquitectura multi-tenant en Supabase con RLS y control de acceso por perfiles.",
+          "Edge Functions para ingestión de pesajes con validación e idempotencia.",
+          "Gestión de balanzas, equipos, camiones, materiales y operaciones."
+        ],
+        "tags": ["Next.js", "TypeScript", "Supabase"],
+        "projectUrl": "https://sn800-web.vercel.app"
+      }
+    ]
   },
   "contact": {
     "title": "Contacto",
-    "subtitle": "Disponible para proyectos, oportunidades o colaboraciones.",
+    "subtitle": "¿Quieres hablar sobre un proyecto, vacante o alianza? Ponte en contacto.",
     "name": "Nombre",
     "email": "Email",
     "message": "Mensaje",

@@ -2,19 +2,21 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Code2, Globe } from 'lucide-react';
 import { useI18n } from '../i18n/i18n';
+import { useActiveSection } from '@/hooks/use-active-section';
 
 const NAV_LINKS = [
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact' },
-];
+  { key: 'about', href: '#about', id: 'about' },
+  { key: 'skills', href: '#skills', id: 'skills' },
+  { key: 'projects', href: '#projects', id: 'projects' },
+  { key: 'contact', href: '#contact', id: 'contact' },
+] as const;
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
-  const { language, setLanguage } = useI18n();
+  const { t, language, setLanguage } = useI18n();
+  const activeSection = useActiveSection();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -23,43 +25,51 @@ export function Navbar() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-background/80 backdrop-blur-md border-b border-border shadow-sm'
-          : 'bg-transparent py-4'
+    <motion.header
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+      className={`fixed top-0 z-50 w-full transition-colors duration-300 ${
+        isScrolled ? 'border-b border-border bg-background/80 shadow-sm backdrop-blur-md' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2 group outline-none">
-          <div className="p-2 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-            <Code2 className="w-5 h-5" />
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <a href="#" className="group flex items-center gap-2 outline-none">
+          <div className="rounded-xl bg-primary/10 p-2 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+            <Code2 className="h-5 w-5" />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight">
+          <span className="font-display text-xl font-bold tracking-tight">
             Antônio<span className="text-primary">.dev</span>
           </span>
         </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-2 py-1"
-            >
-              {link.name}
-            </a>
-          ))}
+        <nav className="hidden items-center gap-8 md:flex">
+          {NAV_LINKS.map((link) => {
+            const isActive = activeSection === link.id;
+            const label = t(`nav.${link.key}`) as string;
+            return (
+              <a key={link.id} href={link.href} className="group relative px-2 py-1 text-sm font-medium outline-none">
+                <span className={`transition-colors ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
+                  {label}
+                </span>
+                {isActive ? (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-primary"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                ) : null}
+              </a>
+            );
+          })}
 
-          {/* Language Selector */}
           <div className="relative flex items-center justify-center">
             <button
               onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground outline-none transition-colors hover:bg-muted/60 hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Change language"
             >
-              <Globe className="w-4 h-4" />
+              <Globe className="h-4 w-4" />
             </button>
 
             <AnimatePresence>
@@ -69,7 +79,7 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
                   transition={{ duration: 0.18 }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[170px] bg-background border border-border rounded-xl shadow-lg overflow-hidden z-50"
+                  className="absolute left-1/2 top-full z-50 mt-2 min-w-[170px] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-background shadow-lg"
                 >
                   {['en', 'pt', 'es'].map((lang) => (
                     <button
@@ -79,9 +89,7 @@ export function Navbar() {
                         setLanguageDropdownOpen(false);
                       }}
                       className={`flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium transition-colors ${
-                        language === lang
-                          ? 'bg-primary text-primary-foreground'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                        language === lang ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       }`}
                     >
                       {lang === 'en' && 'English'}
@@ -96,22 +104,20 @@ export function Navbar() {
 
           <a
             href="#contact"
-            className="px-4 py-2 rounded-full font-medium text-sm bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary focus-visible:ring-offset-background"
+            className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/20 outline-none transition-shadow hover:shadow-primary/30 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            Hire Me
+            {t('nav.hireMe') as string}
           </a>
         </nav>
 
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center gap-3">
-          {/* Mobile Language Selector */}
+        <div className="flex items-center gap-3 md:hidden">
           <div className="relative flex items-center justify-center">
             <button
               onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground hover:bg-muted/60 outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground outline-none hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Change language"
             >
-              <Globe className="w-5 h-5" />
+              <Globe className="h-5 w-5" />
             </button>
 
             <AnimatePresence>
@@ -120,8 +126,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: -10, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                  transition={{ duration: 0.18 }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[170px] bg-background border border-border rounded-xl shadow-lg overflow-hidden z-50"
+                  className="absolute left-1/2 top-full z-50 mt-2 min-w-[170px] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-background shadow-lg"
                 >
                   {['en', 'pt', 'es'].map((lang) => (
                     <button
@@ -131,9 +136,7 @@ export function Navbar() {
                         setLanguageDropdownOpen(false);
                       }}
                       className={`flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium transition-colors ${
-                        language === lang
-                          ? 'bg-primary text-primary-foreground'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                        language === lang ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       }`}
                     >
                       {lang === 'en' && 'English'}
@@ -147,39 +150,39 @@ export function Navbar() {
           </div>
 
           <button
-            className="flex h-10 w-10 items-center justify-center rounded-full text-foreground hover:bg-muted/60 outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-foreground outline-none hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-primary"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-b border-border bg-background/95 backdrop-blur-md overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="border-b border-border bg-background/95 backdrop-blur-md md:hidden"
           >
-            <div className="flex flex-col px-4 py-6 gap-4">
+            <div className="flex flex-col gap-4 px-4 py-6">
               {NAV_LINKS.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.id}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-lg font-medium text-muted-foreground hover:text-foreground py-2 border-b border-border/50"
+                  className="border-b border-border/50 py-2 text-lg font-medium text-muted-foreground hover:text-foreground"
                 >
-                  {link.name}
+                  {t(`nav.${link.key}`) as string}
                 </a>
               ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

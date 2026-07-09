@@ -22,12 +22,10 @@ import fs from "fs";
   }
 });
 
-const rawPort = process.env.PORT;
+const rawPort = process.env.PORT ?? "3005";
 
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
+if (!process.env.PORT) {
+  process.env.PORT = rawPort;
 }
 
 const port = Number(rawPort);
@@ -36,12 +34,10 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-const basePath = process.env.BASE_PATH;
+const basePath = process.env.BASE_PATH ?? "/";
 
-if (!basePath) {
-  throw new Error(
-    "BASE_PATH environment variable is required but was not provided.",
-  );
+if (!process.env.BASE_PATH) {
+  process.env.BASE_PATH = basePath;
 }
 
 export default defineConfig({

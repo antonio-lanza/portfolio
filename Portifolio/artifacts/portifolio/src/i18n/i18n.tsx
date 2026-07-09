@@ -14,7 +14,7 @@ const translations = {
 interface I18nContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string | string[] | Record<string, any>;
+  t: (key: string) => string | string[] | Record<string, unknown> | unknown[];
 }
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
@@ -39,19 +39,20 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const t = (key: string): string => {
+  const t = (key: string): string | string[] | Record<string, unknown> | unknown[] => {
     const keys = key.split('.');
-    let current: any = translations[language];
+    let current: unknown = translations[language];
 
     for (const k of keys) {
-      if (current && typeof current === 'object') {
-        current = current[k];
+      if (current && typeof current === 'object' && k in (current as object)) {
+        current = (current as Record<string, unknown>)[k];
       } else {
         return key;
       }
     }
 
-    return typeof current === 'string' ? current : key;
+    if (current === undefined || current === null) return key;
+    return current as string | string[] | Record<string, unknown> | unknown[];
   };
 
   return (

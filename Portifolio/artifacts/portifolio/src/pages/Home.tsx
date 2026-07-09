@@ -1,4 +1,6 @@
 import { Navbar } from "@/components/Navbar";
+import { ScrollProgress } from "@/components/effects/ScrollProgress";
+import { ParticleBackground } from "@/components/effects/ParticleBackground";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Skills } from "@/components/Skills";
@@ -8,14 +10,18 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
-      <Footer />
-    </main>
+    <>
+      <ParticleBackground />
+      <main className="relative z-[1] min-h-screen overflow-x-hidden text-foreground">
+        <ScrollProgress />
+        <Navbar />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+        <Footer />
+      </main>
+    </>
   );
 }
