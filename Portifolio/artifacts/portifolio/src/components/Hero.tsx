@@ -66,11 +66,11 @@ export function Hero() {
       <div className="relative z-10 mx-auto flex w-full max-w-7xl justify-center">
         <motion.div
           initial={false}
-          animate={ready ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 14, filter: 'blur(6px)' }}
+          animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
           transition={reduceMotion ? { duration: 0 } : heroEntrance}
-          className="gpu-layer flex w-full max-w-5xl flex-col items-center text-center"
+          className="flex w-full max-w-5xl flex-col items-center text-center"
         >
-          <div className="mb-6 inline-flex max-w-full items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-primary shadow-lg shadow-primary/5 backdrop-blur-sm sm:mb-8 sm:px-4 sm:py-2">
+          <div className="mb-6 inline-flex max-w-full items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-primary shadow-lg shadow-primary/5 sm:mb-8 sm:px-4 sm:py-2">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
@@ -89,25 +89,21 @@ export function Hero() {
                   {longestRole}
                 </span>
                 <div className="flex min-h-[3.25rem] w-full max-w-full items-center justify-center sm:min-h-[3.75rem] md:min-h-[4.5rem]">
-                  {canRotateRoles && !reduceMotion ? (
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={roles[roleIndex]}
-                        initial={isFirstRoleCycle.current ? false : { opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.35, ease: easeOut }}
-                        onAnimationComplete={() => {
-                          isFirstRoleCycle.current = false;
-                        }}
-                        className={roleTextClass}
-                      >
-                        {roles[roleIndex]}
-                      </motion.span>
-                    </AnimatePresence>
-                  ) : (
-                    <span className={roleTextClass}>{roles[roleIndex]}</span>
-                  )}
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={canRotateRoles && !reduceMotion ? roles[roleIndex] : 'hero-role-static'}
+                      initial={canRotateRoles && !reduceMotion && !isFirstRoleCycle.current ? { opacity: 0, y: 6 } : false}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={canRotateRoles && !reduceMotion ? { opacity: 0, y: -6 } : undefined}
+                      transition={{ duration: 0.32, ease: easeOut }}
+                      onAnimationComplete={() => {
+                        if (canRotateRoles && !reduceMotion) isFirstRoleCycle.current = false;
+                      }}
+                      className={roleTextClass}
+                    >
+                      {roles[roleIndex]}
+                    </motion.span>
+                  </AnimatePresence>
                 </div>
               </div>
             </div>

@@ -10,11 +10,9 @@ export const navEntrance: Transition = {
 };
 
 export const heroEntrance: Transition = {
-  type: 'spring',
-  stiffness: 90,
-  damping: 20,
-  mass: 0.9,
-  delay: 0.07,
+  duration: 0.6,
+  ease: easeOut,
+  delay: 0.04,
 };
 
 export const fadeUp: Variants = {

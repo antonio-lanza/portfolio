@@ -40,7 +40,7 @@
   },
   "skills": {
     "title": "Skills",
-    "subtitle": "",
+    "subtitle": "The stack I use in my day-to-day work",
     "categories": {
       "frontend": "Frontend",
       "backend": "Backend",
@@ -67,7 +67,7 @@
   },
   "projects": {
     "title": "Projects",
-    "subtitle": "",
+    "subtitle": "My most relevant projects",
     "viewImages": "View images",
     "visitSite": "Visit site",
     "privateRepo": "Private repository",
