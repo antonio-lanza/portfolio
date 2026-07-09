@@ -18,7 +18,7 @@ export function Contact() {
   const { t } = useI18n();
 
   return (
-    <section id="contact" className="relative overflow-hidden border-t border-border/50 bg-secondary/15 py-24 backdrop-blur-[2px]">
+    <section id="contact" className="relative overflow-hidden border-t border-border/50 bg-secondary/15 py-16 backdrop-blur-[2px] sm:py-20 lg:py-24">
       <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/10 blur-[100px]" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 rounded-full bg-blue-500/10 blur-[100px]" />
 
@@ -30,7 +30,7 @@ export function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mx-auto mt-12 grid w-full max-w-2xl grid-cols-2 gap-6 md:grid-cols-4"
+          className="mx-auto mt-8 grid w-full max-w-2xl grid-cols-2 gap-3 sm:mt-12 sm:gap-4 md:grid-cols-4 md:gap-6"
         >
           <ContactLink href={`mailto:${EMAIL}`} icon={<Mail className="h-6 w-6" />} label="Email" />
           <ContactLink href={`https://wa.me/${WHATSAPP}`} icon={<WhatsAppIcon className="h-6 w-6" />} label="WhatsApp" />
@@ -49,12 +49,12 @@ function ContactLink({ href, icon, label }: { href: string; icon: React.ReactNod
     <a
       href={href}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      className="group flex flex-col items-center gap-3 rounded-2xl border border-border/50 bg-background/50 p-4 transition-colors hover:border-primary/30 hover:bg-background"
+      className="group flex min-w-0 flex-col items-center gap-2 rounded-xl border border-border/50 bg-background/50 p-3 transition-colors hover:border-primary/30 hover:bg-background sm:gap-3 sm:rounded-2xl sm:p-4"
     >
-      <div className="rounded-xl bg-secondary p-3 text-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+      <div className="rounded-lg bg-secondary p-2.5 text-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:rounded-xl sm:p-3">
         {icon}
       </div>
-      <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground">{label}</span>
+      <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground sm:text-sm">{label}</span>
     </a>
   );
 }

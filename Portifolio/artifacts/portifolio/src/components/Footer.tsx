@@ -6,8 +6,8 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-background/90 py-12 backdrop-blur-[2px]">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 sm:px-6 md:flex-row lg:px-8">
+    <footer className="border-t border-border bg-background/90 py-8 backdrop-blur-[2px] sm:py-12">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-4 text-center sm:px-6 md:flex-row md:gap-6 md:text-left lg:px-8">
         <div className="flex items-center gap-2 opacity-80 transition-opacity hover:opacity-100">
           <Code2 className="h-5 w-5 text-primary" />
           <span className="font-display text-lg font-bold">
@@ -15,7 +15,7 @@ export function Footer() {
           </span>
         </div>
 
-        <p className="text-center text-sm text-muted-foreground md:text-left">
+        <p className="max-w-sm text-sm text-muted-foreground">
           &copy; {currentYear} {t('footer.credit') as string}
         </p>
 

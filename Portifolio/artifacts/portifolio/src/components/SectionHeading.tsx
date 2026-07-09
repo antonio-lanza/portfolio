@@ -9,13 +9,13 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ title, subtitle, align = 'center' }: SectionHeadingProps) {
   return (
-    <div className={`mb-16 ${align === 'center' ? 'flex flex-col items-center text-center' : 'text-left'}`}>
+    <div className={`mb-10 sm:mb-16 ${align === 'center' ? 'flex flex-col items-center text-center' : 'text-left'}`}>
       <motion.h2
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="mb-4 text-3xl font-bold md:text-5xl"
+        className="mb-3 text-2xl font-bold sm:mb-4 sm:text-3xl md:text-5xl"
       >
         {title}
       </motion.h2>
@@ -26,7 +26,7 @@ export function SectionHeading({ title, subtitle, align = 'center' }: SectionHea
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.4, delay: 0.08 }}
-          className="max-w-2xl text-lg text-muted-foreground"
+          className="max-w-2xl px-1 text-base text-muted-foreground sm:text-lg"
         >
           {subtitle}
         </motion.p>

@@ -10,11 +10,11 @@ export function Projects() {
   const items = (Array.isArray(raw) ? raw : []).filter(isProjectItem) as ProjectItem[];
 
   return (
-    <section id="projects" className="border-t border-border/50 bg-background/88 py-24 backdrop-blur-[2px]">
+    <section id="projects" className="border-t border-border/50 bg-background/88 py-16 backdrop-blur-[2px] sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t('projects.title') as string} subtitle={t('projects.subtitle') as string} />
+        <SectionHeading title={t('projects.title') as string} subtitle={(t('projects.subtitle') as string) || undefined} />
 
-        <div className="space-y-10">
+        <div className="space-y-6 sm:space-y-10">
           {items.map((project) => (
             <ProjectCard
               key={project.id}

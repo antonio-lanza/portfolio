@@ -1,9 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useContext, useState, type ReactNode } from 'react';
 import en from './locales/en.json';
 import pt from './locales/pt.json';
 import es from './locales/es.json';
+import { I18nContext, type Language } from './context';
 
-export type Language = 'en' | 'pt' | 'es';
+export type { Language } from './context';
 
 const translations = {
   en,
@@ -11,20 +12,12 @@ const translations = {
   es,
 };
 
-interface I18nContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: (key: string) => string | string[] | Record<string, unknown> | unknown[];
-}
-
-const I18nContext = createContext<I18nContextType | undefined>(undefined);
-
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('language') as Language | null;
       if (saved && saved in translations) return saved;
-      
+
       const browserLang = navigator.language.split('-')[0];
       if (browserLang === 'pt') return 'pt';
       if (browserLang === 'es') return 'es';
@@ -55,14 +48,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     return current as string | string[] | Record<string, unknown> | unknown[];
   };
 
-  return (
-    <I18nContext.Provider value={{ language, setLanguage, t }}>
-      {children}
-    </I18nContext.Provider>
-  );
+  return <I18nContext.Provider value={{ language, setLanguage, t }}>{children}</I18nContext.Provider>;
 }
 
-export function useI18n(): I18nContextType {
+export function useI18n() {
   const context = useContext(I18nContext);
   if (!context) {
     throw new Error('useI18n must be used within I18nProvider');

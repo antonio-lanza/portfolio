@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, Code2, Globe } from 'lucide-react';
-import { useI18n } from '../i18n/i18n';
+import { useI18n } from '@/i18n/i18n';
 import { useActiveSection } from '@/hooks/use-active-section';
 import { useEntrance } from '@/hooks/use-entrance';
 import { easeOut, navEntrance } from '@/lib/motion';
@@ -28,6 +28,13 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-colors duration-300 ${
@@ -38,13 +45,13 @@ export function Navbar() {
         initial={false}
         animate={ready ? { y: 0 } : { y: -12 }}
         transition={reduceMotion ? { duration: 0 } : navEntrance}
-        className="gpu-layer mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+        className="gpu-layer mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6 lg:px-8"
       >
-        <a href="#" className="group flex items-center gap-2 text-foreground outline-none">
-          <div className="rounded-xl bg-primary/10 p-2 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-            <Code2 className="h-5 w-5" />
+        <a href="#" className="group flex min-w-0 items-center gap-2 text-foreground outline-none">
+          <div className="shrink-0 rounded-xl bg-primary/10 p-1.5 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground sm:p-2">
+            <Code2 className="h-4 w-4 sm:h-5 sm:w-5" />
           </div>
-          <span className="font-display text-xl font-bold tracking-tight text-foreground">
+          <span className="truncate font-display text-base font-bold tracking-tight text-foreground sm:text-xl">
             Antônio<span className="text-primary">.dev</span>
           </span>
         </a>
@@ -174,17 +181,24 @@ export function Navbar() {
             transition={{ duration: 0.22, ease: easeOut }}
             className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-md md:hidden"
           >
-            <div className="flex flex-col gap-4 px-4 py-6">
+            <div className="flex max-h-[calc(100dvh-3.5rem)] flex-col gap-1 overflow-y-auto px-4 py-5 sm:max-h-[calc(100dvh-4rem)]">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.id}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="border-b border-border/50 py-2 text-lg font-medium text-muted-foreground hover:text-foreground"
+                  className="rounded-lg border-b border-border/50 py-3 text-base font-medium text-muted-foreground hover:bg-muted/40 hover:text-foreground sm:text-lg"
                 >
                   {t(`nav.${link.key}`) as string}
                 </a>
               ))}
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
+              >
+                {t('nav.hireMe') as string}
+              </a>
             </div>
           </motion.div>
         )}

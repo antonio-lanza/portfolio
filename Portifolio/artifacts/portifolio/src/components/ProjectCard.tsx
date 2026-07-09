@@ -27,20 +27,20 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-      className="group overflow-hidden rounded-[28px] border border-border/70 bg-card shadow-[0_12px_40px_rgba(15,23,42,0.08)] transition-shadow duration-300 hover:shadow-[0_16px_40px_rgba(59,130,246,0.08)]"
+      className="group overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[0_12px_40px_rgba(15,23,42,0.08)] transition-shadow duration-300 hover:shadow-[0_16px_40px_rgba(59,130,246,0.08)] sm:rounded-[28px]"
     >
       <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.14),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.10),transparent_40%)]" />
 
-        <div className="relative p-6 sm:p-8 lg:p-10">
+        <div className="relative p-4 sm:p-6 lg:p-10">
           <motion.div
             variants={staggerContainer(0.04)}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="mb-5 flex flex-wrap items-center gap-2"
+            className="mb-4 flex flex-wrap items-center gap-2 sm:mb-5"
           >
-            <motion.span variants={fadeUp} className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+            <motion.span variants={fadeUp} className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary sm:px-3 sm:text-[11px] sm:tracking-[0.18em]">
               {eyebrow}
             </motion.span>
             {period ? (
@@ -65,7 +65,7 @@ export function ProjectCard({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.05 }}
-              className="text-[2.2rem] font-bold tracking-tight text-foreground sm:text-[2.7rem] lg:text-[3.1rem]"
+              className="text-2xl font-bold tracking-tight text-foreground sm:text-[2.2rem] lg:text-[3.1rem]"
             >
               {title}
             </motion.h3>
@@ -75,7 +75,7 @@ export function ProjectCard({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="mt-6 text-[1.06rem] leading-9 text-muted-foreground sm:text-[1.14rem] lg:text-[1.22rem] lg:leading-10"
+              className="mt-4 text-base leading-7 text-muted-foreground sm:mt-6 sm:text-[1.06rem] sm:leading-8 lg:text-[1.22rem] lg:leading-10"
             >
               {description}
             </motion.p>
@@ -86,15 +86,15 @@ export function ProjectCard({
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-40px' }}
-            className="mt-9 grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+            className="mt-6 grid gap-3 sm:mt-9 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3"
           >
             {highlights.map((item) => (
               <motion.div
                 key={item}
                 variants={fadeUp}
-                className="rounded-2xl border border-border/60 bg-background/85 p-5 backdrop-blur-sm transition-colors duration-200 hover:border-primary/25 hover:bg-background"
+                className="rounded-xl border border-border/60 bg-background/85 p-4 backdrop-blur-sm transition-colors duration-200 hover:border-primary/25 hover:bg-background sm:rounded-2xl sm:p-5"
               >
-                <p className="text-[15px] font-semibold leading-7 text-foreground sm:text-[1rem] lg:text-[1.04rem]">{item}</p>
+                <p className="text-sm font-semibold leading-6 text-foreground sm:text-[15px] sm:leading-7 lg:text-[1.04rem]">{item}</p>
               </motion.div>
             ))}
           </motion.div>

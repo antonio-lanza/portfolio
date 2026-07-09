@@ -36,11 +36,11 @@ export function Skills() {
   ];
 
   return (
-    <section id="skills" className="relative border-y border-border/50 bg-secondary/20 py-24 backdrop-blur-[2px]">
+    <section id="skills" className="relative border-y border-border/50 bg-secondary/20 py-16 backdrop-blur-[2px] sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t('skills.title') as string} subtitle={t('skills.subtitle') as string} />
+        <SectionHeading title={t('skills.title') as string} subtitle={(t('skills.subtitle') as string) || undefined} />
 
-        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {SKILL_CATEGORIES.map((category, catIdx) => (
             <motion.div
               key={category.title}
@@ -48,11 +48,11 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.45, delay: catIdx * 0.08 }}
-              className="glass-card rounded-3xl p-8 transition-shadow duration-300 hover:shadow-[0_12px_32px_rgba(59,130,246,0.08)]"
+              className="glass-card rounded-2xl p-5 transition-shadow duration-300 hover:shadow-[0_12px_32px_rgba(59,130,246,0.08)] sm:rounded-3xl sm:p-8"
             >
-              <h3 className="mb-8 border-b border-border/50 pb-4 text-xl font-bold text-foreground">{category.title}</h3>
+              <h3 className="mb-6 border-b border-border/50 pb-3 text-lg font-bold text-foreground sm:mb-8 sm:pb-4 sm:text-xl">{category.title}</h3>
 
-              <div className="space-y-6">
+              <div className="space-y-5 sm:space-y-6">
                 {category.skills.map((skill, skillIdx) => (
                   <div key={skill.name} className="group">
                     <div className="mb-2 flex justify-between">

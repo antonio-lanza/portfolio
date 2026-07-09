@@ -39,8 +39,8 @@
     }
   },
   "skills": {
-    "title": "Technologies",
-    "subtitle": "What I use in the projects below.",
+    "title": "Skills",
+    "subtitle": "",
     "categories": {
       "frontend": "Frontend",
       "backend": "Backend",
@@ -67,7 +67,7 @@
   },
   "projects": {
     "title": "Projects",
-    "subtitle": "Systems I built and maintain in production.",
+    "subtitle": "",
     "viewImages": "View images",
     "visitSite": "Visit site",
     "privateRepo": "Private repository",
