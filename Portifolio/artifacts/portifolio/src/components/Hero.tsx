@@ -1,12 +1,18 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, type Variants } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { Github, Linkedin, ArrowRight } from 'lucide-react';
 import { useI18n } from '@/i18n/i18n';
-import { easeOut } from '@/lib/motion';
+import { useEntrance } from '@/hooks/use-entrance';
+import { easeOut, heroEntrance } from '@/lib/motion';
+
+const ROLE_ROTATION_DELAY_MS = 1800;
 
 export function Hero() {
   const { t } = useI18n();
+  const ready = useEntrance();
+  const reduceMotion = useReducedMotion();
   const [roleIndex, setRoleIndex] = useState(0);
+  const [canRotateRoles, setCanRotateRoles] = useState(false);
   const rolesData = t('hero.roles');
   const roles = Array.isArray(rolesData) ? rolesData : ['Frontend Developer', 'UI Engineer', 'React Specialist', 'Creative Coder'];
   const longestRole = roles.reduce(
@@ -19,23 +25,20 @@ export function Hero() {
   const bgY = useTransform(scrollY, [0, 600], [0, 40]);
 
   useEffect(() => {
-    const interval = window.setInterval(() => setRoleIndex((prev) => (prev + 1) % roles.length), 2200);
+    if (!ready || reduceMotion) return;
+    const timeout = window.setTimeout(() => setCanRotateRoles(true), ROLE_ROTATION_DELAY_MS);
+    return () => window.clearTimeout(timeout);
+  }, [ready, reduceMotion]);
+
+  useEffect(() => {
+    if (!canRotateRoles || reduceMotion) return;
+    const interval = window.setInterval(() => setRoleIndex((prev) => (prev + 1) % roles.length), 2400);
     return () => window.clearInterval(interval);
-  }, [roles]);
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.08 } },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
-  };
+  }, [roles, canRotateRoles, reduceMotion]);
 
   return (
     <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background pt-20">
-      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
+      <motion.div className="absolute inset-0 z-0" style={{ y: reduceMotion ? 0 : bgY }}>
         <img
           src={`${import.meta.env.BASE_URL}images/hero-bg.png`}
           alt="Abstract tech background"
@@ -49,23 +52,20 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl justify-center px-4 sm:px-6 lg:px-8">
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex w-full max-w-5xl flex-col items-center text-center"
+          initial={false}
+          animate={ready ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 14, filter: 'blur(6px)' }}
+          transition={reduceMotion ? { duration: 0 } : heroEntrance}
+          className="gpu-layer flex w-full max-w-5xl flex-col items-center text-center"
         >
-          <motion.div
-            variants={itemVariants}
-            className="mb-8 inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-primary shadow-lg shadow-primary/5 backdrop-blur-sm"
-          >
+          <div className="mb-8 inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-primary shadow-lg shadow-primary/5 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
             <span className="text-sm font-medium">{t('hero.badge') as string}</span>
-          </motion.div>
+          </div>
 
-          <motion.div variants={itemVariants} className="flex w-full flex-col items-center justify-center">
+          <div className="flex w-full flex-col items-center justify-center">
             <h1 className="m-0 text-center font-bold leading-[0.95] tracking-tight text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
               {name}
             </h1>
@@ -76,31 +76,34 @@ export function Hero() {
                   {longestRole}
                 </span>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={roles[roleIndex]}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.35, ease: easeOut }}
-                      className="text-gradient whitespace-nowrap py-[0.1em] text-center text-3xl font-bold leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl"
-                    >
+                  {canRotateRoles && !reduceMotion ? (
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={roles[roleIndex]}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.35, ease: easeOut }}
+                        className="text-gradient whitespace-nowrap py-[0.1em] text-center text-3xl font-bold leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl"
+                      >
+                        {roles[roleIndex]}
+                      </motion.span>
+                    </AnimatePresence>
+                  ) : (
+                    <span className="text-gradient whitespace-nowrap py-[0.1em] text-center text-3xl font-bold leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl">
                       {roles[roleIndex]}
-                    </motion.span>
-                  </AnimatePresence>
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.p
-            variants={itemVariants}
-            className="mx-auto mt-8 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground md:text-xl"
-          >
+          <p className="mx-auto mt-8 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground md:text-xl">
             {t('hero.description') as string}
-          </motion.p>
+          </p>
 
-          <motion.div variants={itemVariants} className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
               href="#projects"
               className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40"
@@ -114,7 +117,7 @@ export function Hero() {
               <div className="h-6 w-px bg-border" />
               <SocialLink href="https://www.linkedin.com/in/antoniopernoncini/" icon={<Linkedin className="h-5 w-5" />} />
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

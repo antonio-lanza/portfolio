@@ -1,6 +1,21 @@
-import type { Variants } from 'framer-motion';
+import type { Transition, Variants } from 'framer-motion';
 
-export const easeOut = [0.25, 0.1, 0.25, 1] as const;
+export const easeOut = [0.22, 1, 0.36, 1] as const;
+
+export const navEntrance: Transition = {
+  type: 'spring',
+  stiffness: 120,
+  damping: 22,
+  mass: 0.75,
+};
+
+export const heroEntrance: Transition = {
+  type: 'spring',
+  stiffness: 90,
+  damping: 20,
+  mass: 0.9,
+  delay: 0.07,
+};
 
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 12 },

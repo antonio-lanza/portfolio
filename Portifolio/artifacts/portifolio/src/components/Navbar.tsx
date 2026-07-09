@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, Code2, Globe } from 'lucide-react';
 import { useI18n } from '../i18n/i18n';
 import { useActiveSection } from '@/hooks/use-active-section';
+import { useEntrance } from '@/hooks/use-entrance';
+import { easeOut, navEntrance } from '@/lib/motion';
 
 const NAV_LINKS = [
   { key: 'about', href: '#about', id: 'about' },
@@ -12,6 +14,8 @@ const NAV_LINKS = [
 ] as const;
 
 export function Navbar() {
+  const ready = useEntrance();
+  const reduceMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
@@ -25,15 +29,17 @@ export function Navbar() {
   }, []);
 
   return (
-    <motion.header
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+    <header
       className={`fixed top-0 z-50 w-full transition-colors duration-300 ${
         isScrolled ? 'border-b border-border bg-background/80 shadow-sm backdrop-blur-md' : 'bg-transparent'
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={false}
+        animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 }}
+        transition={reduceMotion ? { duration: 0 } : navEntrance}
+        className="gpu-layer mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+      >
         <a href="#" className="group flex items-center gap-2 outline-none">
           <div className="rounded-xl bg-primary/10 p-2 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
             <Code2 className="h-5 w-5" />
@@ -157,16 +163,16 @@ export function Navbar() {
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="border-b border-border bg-background/95 backdrop-blur-md md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.22, ease: easeOut }}
+            className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-md md:hidden"
           >
             <div className="flex flex-col gap-4 px-4 py-6">
               {NAV_LINKS.map((link) => (
@@ -183,6 +189,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

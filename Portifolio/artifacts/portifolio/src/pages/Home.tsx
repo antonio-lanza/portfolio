@@ -7,6 +7,8 @@ import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { EntranceProvider } from "@/hooks/use-entrance";
+import { MotionConfig } from "framer-motion";
 
 export default function Home() {
   return (
@@ -14,8 +16,12 @@ export default function Home() {
       <ParticleBackground />
       <main className="relative z-[1] min-h-screen overflow-x-hidden text-foreground">
         <ScrollProgress />
-        <Navbar />
-        <Hero />
+        <MotionConfig reducedMotion="user">
+          <EntranceProvider>
+            <Navbar />
+            <Hero />
+          </EntranceProvider>
+        </MotionConfig>
         <About />
         <Skills />
         <Projects />
