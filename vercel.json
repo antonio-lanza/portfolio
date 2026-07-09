@@ -1,0 +1,18 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd Portifolio && pnpm install",
+  "buildCommand": "cd Portifolio && pnpm --filter @workspace/portfolio run build",
+  "outputDirectory": "Portifolio/artifacts/portifolio/dist/public",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "build": {
+    "env": {
+      "BASE_PATH": "/"
+    }
+  }
+}
