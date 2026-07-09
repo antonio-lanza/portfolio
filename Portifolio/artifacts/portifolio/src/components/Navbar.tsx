@@ -36,15 +36,15 @@ export function Navbar() {
     >
       <motion.div
         initial={false}
-        animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 }}
+        animate={ready ? { y: 0 } : { y: -12 }}
         transition={reduceMotion ? { duration: 0 } : navEntrance}
         className="gpu-layer mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
       >
-        <a href="#" className="group flex items-center gap-2 outline-none">
+        <a href="#" className="group flex items-center gap-2 text-foreground outline-none">
           <div className="rounded-xl bg-primary/10 p-2 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
             <Code2 className="h-5 w-5" />
           </div>
-          <span className="font-display text-xl font-bold tracking-tight">
+          <span className="font-display text-xl font-bold tracking-tight text-foreground">
             Antônio<span className="text-primary">.dev</span>
           </span>
         </a>

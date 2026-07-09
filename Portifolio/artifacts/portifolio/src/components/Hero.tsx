@@ -1,11 +1,13 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { Github, Linkedin, ArrowRight } from 'lucide-react';
 import { useI18n } from '@/i18n/i18n';
 import { useEntrance } from '@/hooks/use-entrance';
 import { easeOut, heroEntrance } from '@/lib/motion';
 
-const ROLE_ROTATION_DELAY_MS = 1800;
+const ROLE_ENABLE_DELAY_MS = 400;
+const FIRST_ROTATION_MS = 900;
+const ROLE_CYCLE_MS = 2200;
 
 export function Hero() {
   const { t } = useI18n();
@@ -13,6 +15,7 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
   const [roleIndex, setRoleIndex] = useState(0);
   const [canRotateRoles, setCanRotateRoles] = useState(false);
+  const isFirstRoleCycle = useRef(true);
   const rolesData = t('hero.roles');
   const roles = Array.isArray(rolesData) ? rolesData : ['Frontend Developer', 'UI Engineer', 'React Specialist', 'Creative Coder'];
   const longestRole = roles.reduce(
@@ -26,14 +29,21 @@ export function Hero() {
 
   useEffect(() => {
     if (!ready || reduceMotion) return;
-    const timeout = window.setTimeout(() => setCanRotateRoles(true), ROLE_ROTATION_DELAY_MS);
+    const timeout = window.setTimeout(() => setCanRotateRoles(true), ROLE_ENABLE_DELAY_MS);
     return () => window.clearTimeout(timeout);
   }, [ready, reduceMotion]);
 
   useEffect(() => {
     if (!canRotateRoles || reduceMotion) return;
-    const interval = window.setInterval(() => setRoleIndex((prev) => (prev + 1) % roles.length), 2400);
-    return () => window.clearInterval(interval);
+
+    const rotate = () => setRoleIndex((prev) => (prev + 1) % roles.length);
+    const firstTimeout = window.setTimeout(rotate, FIRST_ROTATION_MS);
+    const interval = window.setInterval(rotate, ROLE_CYCLE_MS);
+
+    return () => {
+      window.clearTimeout(firstTimeout);
+      window.clearInterval(interval);
+    };
   }, [roles, canRotateRoles, reduceMotion]);
 
   return (
@@ -80,10 +90,13 @@ export function Hero() {
                     <AnimatePresence mode="wait">
                       <motion.span
                         key={roles[roleIndex]}
-                        initial={{ opacity: 0, y: 4 }}
+                        initial={isFirstRoleCycle.current ? false : { opacity: 0, y: 4 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
                         transition={{ duration: 0.35, ease: easeOut }}
+                        onAnimationComplete={() => {
+                          isFirstRoleCycle.current = false;
+                        }}
                         className="text-gradient whitespace-nowrap py-[0.1em] text-center text-3xl font-bold leading-[1.2] sm:text-4xl md:text-5xl lg:text-6xl"
                       >
                         {roles[roleIndex]}
