@@ -1,6 +1,7 @@
 {
   "name": "portifolio-repo",
   "private": true,
+  "packageManager": "pnpm@10.32.1",
   "scripts": {
     "vercel-build": "cd Portifolio && pnpm --filter @workspace/portfolio run build"
   }

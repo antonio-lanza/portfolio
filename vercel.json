@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "cd Portifolio && pnpm install",
+  "installCommand": "corepack enable && corepack prepare pnpm@10.32.1 --activate && cd Portifolio && pnpm install --frozen-lockfile",
   "buildCommand": "cd Portifolio && pnpm --filter @workspace/portfolio run build",
   "outputDirectory": "Portifolio/artifacts/portifolio/dist/public",
   "framework": null,
