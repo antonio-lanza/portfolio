@@ -3,9 +3,9 @@
   "private": true,
   "packageManager": "pnpm@10.32.1",
   "scripts": {
-    "dev": "cd Portifolio && pnpm --filter @workspace/portfolio run dev",
-    "build": "cd Portifolio && pnpm --filter @workspace/portfolio run build",
-    "typecheck": "cd Portifolio && pnpm run typecheck",
-    "vercel-build": "cd Portifolio && pnpm --filter @workspace/portfolio run build"
+    "dev": "cd Portfolio && pnpm --filter @workspace/portfolio run dev",
+    "build": "cd Portfolio && pnpm --filter @workspace/portfolio run build",
+    "typecheck": "cd Portfolio && pnpm run typecheck",
+    "vercel-build": "cd Portfolio && pnpm --filter @workspace/portfolio run build"
   }
 }

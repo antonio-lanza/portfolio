@@ -20,7 +20,7 @@ Requisitos: **Node.js 20+** e **pnpm 10**.
 
 ```bash
 # na raiz do repositório
-cd Portifolio
+cd Portfolio
 pnpm install
 pnpm --filter @workspace/portfolio run dev
 ```
@@ -30,16 +30,16 @@ O app sobe em `http://localhost:3005` (porta configurável via `PORT` no `.env`)
 Copie o exemplo de env se precisar:
 
 ```bash
-cp artifacts/portifolio/.env.example artifacts/portifolio/.env
+cp artifacts/portfolio/.env.example artifacts/portfolio/.env
 ```
 
 ## Estrutura
 
 ```text
 .
-├── Portifolio/                      # workspace pnpm
+├── Portfolio/                       # workspace pnpm
 │   ├── artifacts/
-│   │   ├── portifolio/              # app do site (pacote @workspace/portfolio)
+│   │   ├── portfolio/               # app do site
 │   │   └── api-server/              # API Express (GitHub repos, health)
 │   ├── lib/                         # libs compartilhadas (OpenAPI, Zod, DB)
 │   └── scripts/
@@ -48,8 +48,6 @@ cp artifacts/portifolio/.env.example artifacts/portifolio/.env
 ├── LICENSE
 └── vercel.json
 ```
-
-> O nome da pasta `portifolio` (com “i”) é histórico; o pacote npm e a documentação usam a grafia correta **portfolio**.
 
 ## Scripts úteis
 

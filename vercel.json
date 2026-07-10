@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "cd Portifolio && npx -y pnpm@10.32.1 install",
-  "buildCommand": "cd Portifolio && npx -y pnpm@10.32.1 --filter @workspace/portfolio run build",
-  "outputDirectory": "Portifolio/artifacts/portifolio/dist/public",
+  "installCommand": "cd Portfolio && npx -y pnpm@10.32.1 install",
+  "buildCommand": "cd Portfolio && npx -y pnpm@10.32.1 --filter @workspace/portfolio run build",
+  "outputDirectory": "Portfolio/artifacts/portfolio/dist/public",
   "framework": null,
   "rewrites": [
     {
