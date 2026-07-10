@@ -6,7 +6,7 @@
   "framework": null,
   "rewrites": [
     {
-      "source": "/((?!robots\\.txt|sitemap\\.xml|site\\.webmanifest|favicon\\.svg|opengraph\\.jpg|images/).*)",
+      "source": "/((?!robots\\.txt|sitemap\\.xml|site\\.webmanifest|favicon\\.svg|opengraph\\.jpg|google.*\\.html|images/).*)",
       "destination": "/index.html"
     }
   ],
