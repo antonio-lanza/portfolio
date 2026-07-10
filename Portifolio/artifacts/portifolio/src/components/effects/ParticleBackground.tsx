@@ -26,6 +26,23 @@ function createParticle(width: number, height: number): Particle {
   };
 }
 
+function getContactIntensity() {
+  const el = document.getElementById('contact');
+  if (!el) return 0;
+
+  const rect = el.getBoundingClientRect();
+  const vh = window.innerHeight;
+  const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+  if (visible <= 0) return 0;
+
+  const ratio = visible / vh;
+  return Math.min(1, Math.max(0, (ratio - 0.12) / 0.45));
+}
+
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+
 export function ParticleBackground() {
   const ready = useEntrance();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -42,6 +59,8 @@ export function ParticleBackground() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let animationId = 0;
     let particles: Particle[] = [];
+    let intensity = 0;
+    let targetIntensity = 0;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -57,9 +76,32 @@ export function ParticleBackground() {
       );
     };
 
+    const updateTarget = () => {
+      targetIntensity = getContactIntensity();
+      if (prefersReducedMotion) {
+        intensity = targetIntensity;
+        draw();
+      }
+    };
+
     const draw = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
+
+      if (!prefersReducedMotion) {
+        intensity += (targetIntensity - intensity) * 0.08;
+        if (Math.abs(targetIntensity - intensity) < 0.002) intensity = targetIntensity;
+      } else {
+        intensity = targetIntensity;
+      }
+
+      const t = intensity;
+      const connectionDistance = lerp(CONNECTION_DISTANCE, 148, t);
+      const lineAlphaMax = lerp(0.1, 0.2, t);
+      const lineWidth = lerp(0.5, 0.7, t);
+      const sizeBoost = lerp(1, 1.2, t);
+      const opacityBoost = lerp(1, 1.65, t);
+      const glowStrength = t * 0.14;
 
       ctx.clearRect(0, 0, w, h);
 
@@ -73,9 +115,22 @@ export function ParticleBackground() {
           if (p.y > h) p.y = 0;
         }
 
+        const size = p.size * sizeBoost;
+        const alpha = Math.min(1, p.opacity * opacityBoost);
+
+        if (glowStrength > 0.01) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, size * 2.4, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(56, 189, 248, ${alpha * glowStrength})`;
+          ctx.fill();
+        }
+
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(125, 211, 252, ${p.opacity})`;
+        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+        ctx.fillStyle =
+          t > 0.05
+            ? `rgba(186, 230, 253, ${alpha})`
+            : `rgba(125, 211, 252, ${alpha})`;
         ctx.fill();
       }
 
@@ -87,13 +142,13 @@ export function ParticleBackground() {
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < CONNECTION_DISTANCE) {
-            const alpha = (1 - dist / CONNECTION_DISTANCE) * 0.1;
+          if (dist < connectionDistance) {
+            const alpha = (1 - dist / connectionDistance) * lineAlphaMax;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = lineWidth;
             ctx.stroke();
           }
         }
@@ -105,11 +160,14 @@ export function ParticleBackground() {
     };
 
     resize();
+    updateTarget();
     draw();
 
     window.addEventListener('resize', resize);
+    window.addEventListener('scroll', updateTarget, { passive: true });
     return () => {
       window.removeEventListener('resize', resize);
+      window.removeEventListener('scroll', updateTarget);
       cancelAnimationFrame(animationId);
     };
   }, [ready]);
