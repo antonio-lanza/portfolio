@@ -9,21 +9,22 @@
   "hero": {
     "badge": "Open to projects",
     "name": "Antônio Lanza",
+    "location": "Full Stack Developer · Passo Fundo, Brazil",
     "roles": [
       "Fullstack Developer",
       "React & Next.js",
       "Flask & FastAPI",
       "PostgreSQL & Supabase"
     ],
-    "description": "I turn ideas into fast, modern, and scalable web applications.",
+    "description": "Full Stack developer in Passo Fundo, Brazil. I turn ideas into fast, modern, and scalable web applications.",
     "viewWork": "View projects"
   },
   "about": {
     "title": "About",
-    "subtitle": "Full Stack developer specialized in building modern, scalable web applications ready for production.",
+    "subtitle": "Antônio Lanza — Full Stack developer in Passo Fundo, specialized in modern web applications ready for production.",
     "heading": "Software that drives business.",
-    "description1": "I develop complete web applications, high-conversion landing pages, APIs, and custom systems, combining performance, scalability, and an excellent user experience. I turn complex processes into simple, reliable solutions that are easy to evolve.",
-    "description2": "My experience includes developing platforms, ERPs, and B2B solutions for recruitment, business management, animal nutrition, and industrial weighing, always focused on delivering software ready to grow with the business.",
+    "description1": "I'm Antônio Lanza, a Full Stack developer based in Passo Fundo, Rio Grande do Sul, Brazil. I build complete web applications, high-conversion landing pages, APIs, and custom systems, combining performance, scalability, and an excellent user experience.",
+    "description2": "I work with companies in Passo Fundo, across Rio Grande do Sul, and remote clients. My experience includes platforms, ERPs, and B2B solutions for recruitment, business management, animal nutrition, and industrial weighing — always focused on software ready to grow with the business.",
     "card": {
       "badge": "Full Stack Developer",
       "identity": "Profile",
@@ -127,7 +128,7 @@
   },
   "contact": {
     "title": "Contact",
-    "subtitle": "Want to talk about a project, role, or partnership? Get in touch.",
+    "subtitle": "Looking for a developer in Passo Fundo or remote? Let's talk about your project, role, or partnership.",
     "name": "Name",
     "email": "Email",
     "message": "Message",
@@ -137,7 +138,8 @@
     "error": "Error sending message."
   },
   "footer": {
-    "credit": "Antônio Lanza",
-    "rights": "© 2026"
+    "credit": "Antônio Lanza — Full Stack Developer in Passo Fundo, Brazil",
+    "rights": "© 2026",
+    "location": "Passo Fundo, Rio Grande do Sul, Brazil"
   }
 }

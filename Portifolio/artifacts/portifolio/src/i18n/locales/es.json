@@ -9,21 +9,22 @@
   "hero": {
     "badge": "Disponible para proyectos",
     "name": "Antônio Lanza",
+    "location": "Programador Full Stack · Passo Fundo, Brasil",
     "roles": [
       "Desarrollador Fullstack",
       "React & Next.js",
       "Flask & FastAPI",
       "PostgreSQL & Supabase"
     ],
-    "description": "Transformo ideas en aplicaciones web rápidas, modernas y escalables.",
+    "description": "Programador Full Stack en Passo Fundo (Brasil). Transformo ideas en aplicaciones web rápidas, modernas y escalables.",
     "viewWork": "Ver proyectos"
   },
   "about": {
     "title": "Sobre mí",
-    "subtitle": "Desarrollador Full Stack especializado en crear aplicaciones web modernas, escalables y preparadas para producción.",
+    "subtitle": "Antônio Lanza — desarrollador Full Stack en Passo Fundo, especializado en aplicaciones web modernas listas para producción.",
     "heading": "Software que impulsa negocios.",
-    "description1": "Desarrollo aplicaciones web completas, landing pages de alta conversión, APIs y sistemas a medida, uniendo rendimiento, escalabilidad y una excelente experiencia para el usuario. Transformo procesos complejos en soluciones simples, confiables y fáciles de evolucionar.",
-    "description2": "Mi experiencia incluye el desarrollo de plataformas, ERPs y soluciones B2B para reclutamiento y selección, gestión empresarial, nutrición animal y pesaje industrial, siempre con foco en entregar software preparado para crecer junto con el negocio.",
+    "description1": "Soy Antônio Lanza, programador Full Stack en Passo Fundo, Rio Grande do Sul (Brasil). Desarrollo aplicaciones web completas, landing pages de alta conversión, APIs y sistemas a medida, uniendo rendimiento, escalabilidad y una excelente experiencia para el usuario.",
+    "description2": "Trabajo con empresas de Passo Fundo, de Rio Grande do Sul y clientes remotos. Mi experiencia incluye plataformas, ERPs y soluciones B2B para reclutamiento, gestión empresarial, nutrición animal y pesaje industrial, siempre con foco en software preparado para crecer con el negocio.",
     "card": {
       "badge": "Full Stack Developer",
       "identity": "Perfil",
@@ -127,7 +128,7 @@
   },
   "contact": {
     "title": "Contacto",
-    "subtitle": "¿Quieres hablar sobre un proyecto, vacante o alianza? Ponte en contacto.",
+    "subtitle": "¿Buscas un programador en Passo Fundo o remoto? Hablemos de tu proyecto, vacante o alianza.",
     "name": "Nombre",
     "email": "Email",
     "message": "Mensaje",
@@ -137,7 +138,8 @@
     "error": "Error al enviar."
   },
   "footer": {
-    "credit": "Antônio Lanza",
-    "rights": "© 2026"
+    "credit": "Antônio Lanza — Programador Full Stack en Passo Fundo, Brasil",
+    "rights": "© 2026",
+    "location": "Passo Fundo, Rio Grande do Sul, Brasil"
   }
 }

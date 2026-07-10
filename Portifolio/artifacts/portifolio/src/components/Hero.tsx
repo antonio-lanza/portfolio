@@ -79,6 +79,9 @@ export function Hero() {
             <h1 className="m-0 w-full text-center text-4xl font-bold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
               {name}
             </h1>
+            <p className="mt-2 text-sm font-medium text-muted-foreground sm:mt-3 sm:text-base">
+              {t('hero.location') as string}
+            </p>
 
             <div className="mt-3 w-full max-w-full sm:mt-4">
               <div className="relative mx-auto flex w-full max-w-full justify-center px-1 sm:px-0">

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.antoniolanza.com/sitemap.xml
+Host: https://www.antoniolanza.com
