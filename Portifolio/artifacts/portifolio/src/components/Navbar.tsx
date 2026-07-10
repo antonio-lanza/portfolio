@@ -32,6 +32,19 @@ export function Navbar() {
     };
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    if (!languageDropdownOpen) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest('[data-lang-dropdown]')) return;
+      setLanguageDropdownOpen(false);
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [languageDropdownOpen]);
+
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-colors duration-300 ${
@@ -68,11 +81,12 @@ export function Navbar() {
             );
           })}
 
-          <div className="relative flex items-center justify-center">
+          <div data-lang-dropdown className="relative flex items-center justify-center">
             <button
               onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
               className="flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground outline-none transition-colors hover:bg-muted/60 hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Change language"
+              aria-expanded={languageDropdownOpen}
             >
               <Globe className="h-4 w-4" />
             </button>
@@ -116,11 +130,12 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3 md:hidden">
-          <div className="relative flex items-center justify-center">
+          <div data-lang-dropdown className="relative flex items-center justify-center">
             <button
               onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-foreground outline-none hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-foreground outline-none hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Change language"
+              aria-expanded={languageDropdownOpen}
             >
               <Globe className="h-5 w-5" />
             </button>
@@ -131,7 +146,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: -10, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                  className="absolute left-1/2 top-full z-50 mt-2 min-w-[170px] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-background shadow-lg"
+                  className="absolute right-0 top-full z-50 mt-2 min-w-[170px] overflow-hidden rounded-xl border border-border bg-background shadow-lg"
                 >
                   {['en', 'pt', 'es'].map((lang) => (
                     <button
@@ -140,7 +155,7 @@ export function Navbar() {
                         setLanguage(lang as 'en' | 'pt' | 'es');
                         setLanguageDropdownOpen(false);
                       }}
-                      className={`flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium transition-colors ${
+                      className={`flex min-h-11 w-full items-center justify-center px-4 py-2.5 text-sm font-medium transition-colors ${
                         language === lang ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       }`}
                     >
@@ -155,9 +170,13 @@ export function Navbar() {
           </div>
 
           <button
-            className="flex h-10 w-10 items-center justify-center rounded-full text-foreground outline-none hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-primary"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex h-11 w-11 items-center justify-center rounded-full text-foreground outline-none hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-primary"
+            onClick={() => {
+              setLanguageDropdownOpen(false);
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -171,26 +190,28 @@ export function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.22, ease: easeOut }}
-            className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-md md:hidden"
+            className="w-full border-b border-border bg-background/95 backdrop-blur-md md:hidden"
           >
-            <div className="flex max-h-[calc(100dvh-3.5rem)] flex-col gap-1 overflow-y-auto px-4 py-5 sm:max-h-[calc(100dvh-4rem)]">
+            <div className="flex w-full max-h-[calc(100dvh-3.5rem)] flex-col overflow-y-auto sm:max-h-[calc(100dvh-4rem)]">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.id}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-lg border-b border-border/50 py-3 text-base font-medium text-muted-foreground hover:bg-muted/40 hover:text-foreground sm:text-lg"
+                  className="flex min-h-12 w-full items-center border-b border-border/50 px-4 py-3.5 text-base font-medium text-muted-foreground hover:bg-muted/40 hover:text-foreground sm:px-6 sm:text-lg"
                 >
                   {t(`nav.${link.key}`) as string}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
-              >
-                {t('nav.hireMe') as string}
-              </a>
+              <div className="w-full px-4 py-4 sm:px-6">
+                <a
+                  href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
+                >
+                  {t('nav.hireMe') as string}
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

@@ -110,16 +110,41 @@ export function Hero() {
             {t('hero.description') as string}
           </p>
 
-          <div className="mt-8 flex w-full max-w-md flex-col items-stretch justify-center gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+          {/* Mobile CTAs */}
+          <div className="mt-8 flex w-full max-w-md flex-col gap-3 lg:hidden">
             <a
               href="#projects"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 sm:w-auto sm:px-7 sm:py-3.5"
+              className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25"
+            >
+              {t('hero.viewWork') as string}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+
+            <div className="grid w-full grid-cols-2 gap-3">
+              <SocialLink
+                href="https://github.com/AntonioLanzaDesenvolvedor"
+                icon={<Github className="h-5 w-5" />}
+                className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/10 bg-card/70 text-muted-foreground transition-colors hover:text-primary"
+              />
+              <SocialLink
+                href="https://www.linkedin.com/in/antoniopernoncini/"
+                icon={<Linkedin className="h-5 w-5" />}
+                className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/10 bg-card/70 text-muted-foreground transition-colors hover:text-primary"
+              />
+            </div>
+          </div>
+
+          {/* Desktop CTAs (unchanged) */}
+          <div className="mt-10 hidden w-full max-w-none flex-row flex-wrap items-center justify-center gap-4 lg:flex">
+            <a
+              href="#projects"
+              className="group inline-flex w-auto items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40"
             >
               {t('hero.viewWork') as string}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
 
-            <div className="flex w-full items-center justify-center gap-4 rounded-full border border-white/10 bg-card/70 px-5 py-3 sm:w-auto sm:px-6 sm:py-4">
+            <div className="flex w-auto items-center justify-center gap-4 rounded-full border border-white/10 bg-card/70 px-6 py-4">
               <SocialLink href="https://github.com/AntonioLanzaDesenvolvedor" icon={<Github className="h-5 w-5" />} />
               <div className="h-6 w-px bg-border" />
               <SocialLink href="https://www.linkedin.com/in/antoniopernoncini/" icon={<Linkedin className="h-5 w-5" />} />
@@ -131,13 +156,13 @@ export function Hero() {
   );
 }
 
-function SocialLink({ href, icon }: { href: string; icon: ReactNode }) {
+function SocialLink({ href, icon, className }: { href: string; icon: ReactNode; className?: string }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center justify-center text-muted-foreground transition-colors hover:text-primary"
+      className={className ?? 'flex items-center justify-center text-muted-foreground transition-colors hover:text-primary'}
     >
       {icon}
     </a>

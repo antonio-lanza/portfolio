@@ -40,11 +40,11 @@ export function ProjectCard({
             viewport={{ once: true }}
             className="mb-4 flex flex-wrap items-center gap-2 sm:mb-5"
           >
-            <motion.span variants={fadeUp} className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary sm:px-3 sm:text-[11px] sm:tracking-[0.18em]">
+            <motion.span variants={fadeUp} className="rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary lg:rounded-full lg:px-3 lg:text-[11px] lg:tracking-[0.18em]">
               {eyebrow}
             </motion.span>
             {period ? (
-              <motion.span variants={fadeUp} className="rounded-full border border-border/70 bg-background/90 px-3 py-1.5 text-xs font-medium text-muted-foreground">
+              <motion.span variants={fadeUp} className="rounded-md border border-border/70 bg-background/90 px-3 py-1.5 text-xs font-medium text-muted-foreground lg:rounded-full">
                 {period}
               </motion.span>
             ) : null}
@@ -52,7 +52,7 @@ export function ProjectCard({
               <motion.span
                 key={tag}
                 variants={fadeUp}
-                className="rounded-full border border-border/70 bg-background/90 px-3 py-1.5 text-xs font-medium text-muted-foreground"
+                className="rounded-md border border-border/70 bg-background/90 px-3 py-1.5 text-xs font-medium text-muted-foreground lg:rounded-full"
               >
                 {tag}
               </motion.span>
@@ -106,7 +106,7 @@ export function ProjectCard({
             transition={{ delay: 0.2, duration: 0.4 }}
             className="mt-9"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-4 py-2 text-xs font-medium text-muted-foreground backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/80 px-4 py-2 text-xs font-medium text-muted-foreground backdrop-blur-sm lg:rounded-full">
               <Lock className="h-3.5 w-3.5 shrink-0" />
               <span>{privateRepoLabel}</span>
             </div>
