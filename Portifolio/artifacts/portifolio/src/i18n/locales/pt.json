@@ -9,22 +9,21 @@
   "hero": {
     "badge": "Disponível para projetos",
     "name": "Antônio Lanza",
-    "location": "Programador Full Stack · Passo Fundo, RS",
     "roles": [
       "Desenvolvedor Fullstack",
       "React & Next.js",
       "Flask & FastAPI",
       "PostgreSQL & Supabase"
     ],
-    "description": "Programador Full Stack em Passo Fundo (RS). Transformo ideias em aplicações web rápidas, modernas e escaláveis.",
+    "description": "Transformo ideias em aplicações web rápidas, modernas e escaláveis.",
     "viewWork": "Ver projetos"
   },
   "about": {
     "title": "Sobre",
-    "subtitle": "Antônio Lanza — desenvolvedor Full Stack em Passo Fundo, especializado em aplicações web modernas e prontas para produção.",
+    "subtitle": "Desenvolvedor Full Stack especializado em criar aplicações web modernas, escaláveis e preparadas para produção.",
     "heading": "Software que impulsiona negócios.",
-    "description1": "Sou Antônio Lanza, programador Full Stack em Passo Fundo (RS). Desenvolvo aplicações web completas, landing pages de alta conversão, APIs e sistemas sob medida, unindo performance, escalabilidade e uma ótima experiência para o usuário. Transformo processos complexos em soluções simples, confiáveis e fáceis de evoluir.",
-    "description2": "Atendo empresas de Passo Fundo, do Rio Grande do Sul e clientes remotos. Minha experiência inclui o desenvolvimento de plataformas, ERPs e soluções B2B para recrutamento e seleção, gestão empresarial, nutrição animal e pesagem industrial, sempre com foco em entregar software preparado para crescer junto com o negócio.",
+    "description1": "Desenvolvo aplicações web completas, landing pages de alta conversão, APIs e sistemas sob medida, unindo performance, escalabilidade e uma ótima experiência para o usuário. Transformo processos complexos em soluções simples, confiáveis e fáceis de evoluir.",
+    "description2": "Minha experiência inclui o desenvolvimento de plataformas, ERPs e soluções B2B para recrutamento e seleção, gestão empresarial, nutrição animal e pesagem industrial, sempre com foco em entregar software preparado para crescer junto com o negócio.",
     "card": {
       "badge": "Full Stack Developer",
       "identity": "Perfil",
@@ -128,7 +127,7 @@
   },
   "contact": {
     "title": "Contato",
-    "subtitle": "Precisa de um programador em Passo Fundo ou remoto? Vamos falar sobre seu projeto, vaga ou parceria.",
+    "subtitle": "Quer conversar sobre um projeto, vaga ou parceria? Entre em contato.",
     "name": "Nome",
     "email": "Email",
     "message": "Mensagem",
@@ -138,8 +137,7 @@
     "error": "Erro ao enviar."
   },
   "footer": {
-    "credit": "Antônio Lanza — Programador Full Stack em Passo Fundo, RS",
-    "rights": "© 2026",
-    "location": "Passo Fundo, Rio Grande do Sul, Brasil"
+    "credit": "Antônio Lanza",
+    "rights": "© 2026"
   }
 }

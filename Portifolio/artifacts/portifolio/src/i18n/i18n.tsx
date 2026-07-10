@@ -19,10 +19,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       if (saved && saved in translations) return saved;
 
       const browserLang = navigator.language.split('-')[0];
-      if (browserLang === 'en') return 'en';
+      if (browserLang === 'pt') return 'pt';
       if (browserLang === 'es') return 'es';
     }
-    return 'pt';
+    return 'en';
   });
 
   const setLanguage = (lang: Language) => {
