@@ -134,7 +134,9 @@
     "send": "Enviar",
     "sending": "Enviando...",
     "success": "Mensagem enviada.",
-    "error": "Erro ao enviar."
+    "error": "Erro ao enviar.",
+    "emailSubject": "Olá Antônio — contato pelo portfólio",
+    "emailBody": ""
   },
   "footer": {
     "credit": "Antônio Lanza",

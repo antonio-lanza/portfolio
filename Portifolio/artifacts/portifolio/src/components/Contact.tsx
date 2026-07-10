@@ -16,6 +16,9 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export function Contact() {
   const { t } = useI18n();
+  const subject = encodeURIComponent(t('contact.emailSubject') as string);
+  const body = encodeURIComponent(t('contact.emailBody') as string);
+  const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${subject}&body=${body}`;
 
   return (
     <section id="contact" className="relative overflow-hidden border-t border-border/50 bg-secondary/15 py-16 backdrop-blur-[2px] sm:py-20 lg:py-24">
@@ -32,7 +35,7 @@ export function Contact() {
           transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
           className="mx-auto mt-8 grid w-full max-w-2xl grid-cols-2 gap-3 sm:mt-12 sm:gap-4 md:grid-cols-4 md:gap-6"
         >
-          <ContactLink href={`mailto:${EMAIL}`} icon={<Mail className="h-6 w-6" />} label="Email" />
+          <ContactLink href={gmailHref} icon={<Mail className="h-6 w-6" />} label="Email" />
           <ContactLink href={`https://wa.me/${WHATSAPP}`} icon={<WhatsAppIcon className="h-6 w-6" />} label="WhatsApp" />
           <ContactLink href="https://github.com/AntonioLanzaDesenvolvedor" icon={<Github className="h-6 w-6" />} label="GitHub" />
           <ContactLink href="https://www.linkedin.com/in/antoniopernoncini/" icon={<Linkedin className="h-6 w-6" />} label="LinkedIn" />
@@ -43,12 +46,11 @@ export function Contact() {
 }
 
 function ContactLink({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
-  const isExternal = !href.startsWith('mailto:');
-
   return (
     <a
       href={href}
-      {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      target="_blank"
+      rel="noopener noreferrer"
       className="group flex min-w-0 flex-col items-center gap-2 rounded-xl border border-border/50 bg-background/50 p-3 transition-colors hover:border-primary/30 hover:bg-background sm:gap-3 sm:rounded-2xl sm:p-4"
     >
       <div className="rounded-lg bg-secondary p-2.5 text-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:rounded-xl sm:p-3">

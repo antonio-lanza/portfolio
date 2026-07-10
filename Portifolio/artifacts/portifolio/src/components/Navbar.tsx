@@ -228,13 +228,6 @@ export function Navbar() {
                 ) : null}
               </AnimatePresence>
             </div>
-
-            <a
-              href="#contact"
-              className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/20 outline-none transition-shadow hover:shadow-primary/30 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              {t('nav.hireMe') as string}
-            </a>
           </nav>
 
           {/* Mobile controls */}

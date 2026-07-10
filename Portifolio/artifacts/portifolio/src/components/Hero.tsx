@@ -1,29 +1,44 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { Github, Linkedin, ArrowRight } from 'lucide-react';
 import { useI18n } from '@/i18n/i18n';
 import { useEntrance } from '@/hooks/use-entrance';
-import { easeOut } from '@/lib/motion';
 
-const ROLE_ENABLE_DELAY_MS = 600;
-const FIRST_ROTATION_MS = 900;
-const ROLE_CYCLE_MS = 2200;
+const ROLE_START_DELAY_MS = 400;
+const ROLE_HOLD_MS = 1800;
+const roleEase = [0.22, 1, 0.36, 1] as const;
 
 const roleTextClass =
-  'text-gradient text-center text-xl font-bold leading-tight text-balance sm:text-3xl sm:leading-[1.2] sm:whitespace-nowrap md:text-4xl lg:text-5xl xl:text-6xl';
+  'text-gradient inline-block text-center text-xl font-bold leading-tight text-balance will-change-transform sm:text-3xl sm:leading-[1.2] sm:whitespace-nowrap md:text-4xl lg:text-5xl xl:text-6xl';
+
+const roleMotion = {
+  initial: { opacity: 0, y: 12, scale: 0.98 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.32, ease: roleEase },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    scale: 1.01,
+    transition: { duration: 0.2, ease: roleEase },
+  },
+};
 
 export function Hero() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const ready = useEntrance();
   const reduceMotion = useReducedMotion();
   const [roleIndex, setRoleIndex] = useState(0);
-  const [canRotateRoles, setCanRotateRoles] = useState(false);
-  const isFirstRoleCycle = useRef(true);
-  const rolesData = t('hero.roles');
-  const roles = Array.isArray(rolesData) ? rolesData : ['Frontend Developer', 'UI Engineer', 'React Specialist', 'Creative Coder'];
-  const longestRole = roles.reduce(
-    (longest: string, current: string) => (typeof current === 'string' && current.length > longest.length ? current : longest),
-    'Frontend Developer',
+  const roles = useMemo(() => {
+    const rolesData = t('hero.roles');
+    return (Array.isArray(rolesData) ? rolesData : ['Frontend Developer', 'UI Engineer', 'React Specialist', 'Creative Coder']) as string[];
+  }, [language, t]);
+  const longestRole = useMemo(
+    () => roles.reduce((longest, current) => (current.length > longest.length ? current : longest), roles[0] ?? ''),
+    [roles],
   );
   const name = t('hero.name') as string;
 
@@ -31,23 +46,28 @@ export function Hero() {
   const bgY = useTransform(scrollY, [0, 600], [0, 40]);
 
   useEffect(() => {
-    if (!ready || reduceMotion) return;
-    const timeout = window.setTimeout(() => setCanRotateRoles(true), ROLE_ENABLE_DELAY_MS);
-    return () => window.clearTimeout(timeout);
-  }, [ready, reduceMotion]);
+    setRoleIndex(0);
+  }, [language]);
 
   useEffect(() => {
-    if (!canRotateRoles || reduceMotion) return;
+    if (!ready || reduceMotion || roles.length < 2) return;
 
-    const rotate = () => setRoleIndex((prev) => (prev + 1) % roles.length);
-    const firstTimeout = window.setTimeout(rotate, FIRST_ROTATION_MS);
-    const interval = window.setInterval(rotate, ROLE_CYCLE_MS);
+    let cancelled = false;
+    let timeoutId = 0;
+
+    const tick = () => {
+      if (cancelled) return;
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+      timeoutId = window.setTimeout(tick, ROLE_HOLD_MS);
+    };
+
+    timeoutId = window.setTimeout(tick, ROLE_START_DELAY_MS + ROLE_HOLD_MS);
 
     return () => {
-      window.clearTimeout(firstTimeout);
-      window.clearInterval(interval);
+      cancelled = true;
+      window.clearTimeout(timeoutId);
     };
-  }, [roles, canRotateRoles, reduceMotion]);
+  }, [ready, reduceMotion, roles.length, language]);
 
   return (
     <section id="hero" className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-background px-4 pt-20 pb-12 sm:px-6 sm:pt-24 sm:pb-16 lg:px-8">
@@ -81,26 +101,27 @@ export function Hero() {
             </h1>
 
             <div className="mt-3 w-full max-w-full sm:mt-4">
-              <div className="relative mx-auto flex w-full max-w-full justify-center px-1 sm:px-0">
+              <div className="relative mx-auto flex w-full max-w-full flex-col items-center justify-center px-1 sm:px-0">
                 <span className="pointer-events-none invisible absolute max-w-full text-center text-xl font-bold leading-tight opacity-0 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                   {longestRole}
                 </span>
-                <div className="flex min-h-[3.25rem] w-full max-w-full items-center justify-center sm:min-h-[3.75rem] md:min-h-[4.5rem]">
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.span
-                      key={canRotateRoles && !reduceMotion ? roles[roleIndex] : 'hero-role-static'}
-                      initial={canRotateRoles && !reduceMotion && !isFirstRoleCycle.current ? { opacity: 0, y: 6 } : false}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={canRotateRoles && !reduceMotion ? { opacity: 0, y: -6 } : undefined}
-                      transition={{ duration: 0.32, ease: easeOut }}
-                      onAnimationComplete={() => {
-                        if (canRotateRoles && !reduceMotion) isFirstRoleCycle.current = false;
-                      }}
-                      className={roleTextClass}
-                    >
-                      {roles[roleIndex]}
-                    </motion.span>
-                  </AnimatePresence>
+                <div className="relative flex min-h-[3.25rem] w-full max-w-full items-center justify-center overflow-hidden sm:min-h-[3.75rem] md:min-h-[4.5rem]">
+                  {reduceMotion ? (
+                    <span className={roleTextClass}>{roles[roleIndex]}</span>
+                  ) : (
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={`${language}-${roles[roleIndex]}`}
+                        variants={roleMotion}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        className={roleTextClass}
+                      >
+                        {roles[roleIndex]}
+                      </motion.span>
+                    </AnimatePresence>
+                  )}
                 </div>
               </div>
             </div>
