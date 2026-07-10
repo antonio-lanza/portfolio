@@ -186,33 +186,27 @@ export function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22, ease: easeOut }}
-            className="w-full border-b border-border bg-background/95 backdrop-blur-md md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: easeOut }}
+            className="fixed inset-x-0 top-14 bottom-0 z-40 flex h-[calc(100dvh-3.5rem)] w-full flex-col bg-background md:hidden sm:top-16 sm:h-[calc(100dvh-4rem)]"
           >
-            <div className="flex w-full max-h-[calc(100dvh-3.5rem)] flex-col overflow-y-auto sm:max-h-[calc(100dvh-4rem)]">
+            <nav className="flex h-full w-full flex-col overflow-y-auto">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.id}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex min-h-12 w-full items-center border-b border-border/50 px-4 py-3.5 text-base font-medium text-muted-foreground hover:bg-muted/40 hover:text-foreground sm:px-6 sm:text-lg"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setLanguageDropdownOpen(false);
+                  }}
+                  className="flex min-h-14 w-full flex-1 items-center border-b border-border/50 px-4 text-base font-medium text-muted-foreground active:bg-muted/40 active:text-foreground sm:px-6 sm:text-lg"
                 >
                   {t(`nav.${link.key}`) as string}
                 </a>
               ))}
-              <div className="w-full px-4 py-4 sm:px-6">
-                <a
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
-                >
-                  {t('nav.hireMe') as string}
-                </a>
-              </div>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
