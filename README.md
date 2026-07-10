@@ -1,4 +1,4 @@
-# Portfolio — Antônio Lanza
+﻿# Portfolio — Antônio Lanza
 
 Site pessoal e portfólio de **Antônio Pernoncini Lanza**, desenvolvedor full stack focado em React, TypeScript e interfaces modernas.
 
@@ -37,7 +37,7 @@ O app sobe em `http://localhost:3005`.
 
 - Site: [antoniolanza.com](https://www.antoniolanza.com)
 - LinkedIn: [antoniopernoncini](https://www.linkedin.com/in/antoniopernoncini/)
-- GitHub: [AntonioLanzaDesenvolvedor](https://github.com/AntonioLanzaDesenvolvedor)
+- GitHub: [antonio-lanza](https://github.com/antonio-lanza)
 
 ## Licença
 

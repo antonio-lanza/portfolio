@@ -1,4 +1,4 @@
-import { Code2 } from 'lucide-react';
+﻿import { Code2 } from 'lucide-react';
 import { useI18n } from '@/i18n/i18n';
 
 export function Footer() {
@@ -24,7 +24,7 @@ export function Footer() {
             Top
           </a>
           <a
-            href="https://github.com/AntonioLanzaDesenvolvedor"
+            href="https://github.com/antonio-lanza"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover:text-primary"

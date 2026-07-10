@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
 import { useI18n } from '@/i18n/i18n';
@@ -37,7 +37,7 @@ export function Contact() {
         >
           <ContactLink href={gmailHref} icon={<Mail className="h-6 w-6" />} label="Email" />
           <ContactLink href={`https://wa.me/${WHATSAPP}`} icon={<WhatsAppIcon className="h-6 w-6" />} label="WhatsApp" />
-          <ContactLink href="https://github.com/AntonioLanzaDesenvolvedor" icon={<Github className="h-6 w-6" />} label="GitHub" />
+          <ContactLink href="https://github.com/antonio-lanza" icon={<Github className="h-6 w-6" />} label="GitHub" />
           <ContactLink href="https://www.linkedin.com/in/antoniopernoncini/" icon={<Linkedin className="h-6 w-6" />} label="LinkedIn" />
         </motion.div>
       </div>

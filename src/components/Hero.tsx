@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+﻿import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { Github, Linkedin, ArrowRight } from 'lucide-react';
 import { useI18n } from '@/i18n/i18n';
@@ -143,7 +143,7 @@ export function Hero() {
 
             <div className="grid w-full grid-cols-2 gap-3">
               <SocialLink
-                href="https://github.com/AntonioLanzaDesenvolvedor"
+                href="https://github.com/antonio-lanza"
                 icon={<Github className="h-5 w-5" />}
                 className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/10 bg-card/70 text-muted-foreground transition-colors hover:text-primary"
               />
@@ -166,7 +166,7 @@ export function Hero() {
             </a>
 
             <div className="flex w-auto items-center justify-center gap-4 rounded-full border border-white/10 bg-card/70 px-6 py-4">
-              <SocialLink href="https://github.com/AntonioLanzaDesenvolvedor" icon={<Github className="h-5 w-5" />} />
+              <SocialLink href="https://github.com/antonio-lanza" icon={<Github className="h-5 w-5" />} />
               <div className="h-6 w-px bg-border" />
               <SocialLink href="https://www.linkedin.com/in/antoniopernoncini/" icon={<Linkedin className="h-5 w-5" />} />
             </div>
