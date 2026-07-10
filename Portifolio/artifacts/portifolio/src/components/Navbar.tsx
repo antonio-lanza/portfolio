@@ -103,7 +103,7 @@ export function Navbar() {
       const rect = btn.getBoundingClientRect();
       setMobileLangPos({
         top: rect.bottom + 8,
-        right: window.innerWidth - rect.right,
+        right: Math.max(8, window.innerWidth - rect.right - 10),
       });
     };
 
@@ -141,7 +141,7 @@ export function Navbar() {
       const rect = btn.getBoundingClientRect();
       setMobileLangPos({
         top: rect.bottom + 8,
-        right: window.innerWidth - rect.right,
+        right: Math.max(8, window.innerWidth - rect.right - 10),
       });
     }
     setLanguageDropdownOpen((open) => !open);
