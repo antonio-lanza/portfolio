@@ -18,9 +18,8 @@ function Router() {
 }
 
 function App() {
-  // Ensure dark mode is strictly applied at root for optimal viewing as per requirements
   useEffect(() => {
-    document.documentElement.classList.add('dark');
+    document.documentElement.classList.add("dark");
   }, []);
 
   return (
