@@ -11,7 +11,6 @@ Site pessoal e portfólio de **Antônio Pernoncini Lanza**, desenvolvedor full s
 - Tailwind CSS 4
 - Framer Motion
 - i18n (PT / EN / ES)
-- pnpm workspaces (monorepo)
 - Deploy na Vercel
 
 ## Como rodar localmente
@@ -37,11 +36,9 @@ cp artifacts/portfolio/.env.example artifacts/portfolio/.env
 
 ```text
 .
-├── Portfolio/                       # workspace pnpm
+├── Portfolio/
 │   ├── artifacts/
-│   │   ├── portfolio/               # app do site
-│   │   └── api-server/              # API Express (GitHub repos, health)
-│   ├── lib/                         # libs compartilhadas (OpenAPI, Zod, DB)
+│   │   └── portfolio/               # app do site (Vite + React)
 │   └── scripts/
 ├── package.json
 ├── README.md
@@ -55,8 +52,7 @@ cp artifacts/portfolio/.env.example artifacts/portfolio/.env
 |--------|-----------|
 | `pnpm --filter @workspace/portfolio run dev` | Dev server do site |
 | `pnpm --filter @workspace/portfolio run build` | Build de produção |
-| `pnpm --filter @workspace/api-server run dev` | API local (porta 3001) |
-| `pnpm run typecheck` | Typecheck do monorepo |
+| `pnpm run typecheck` | Typecheck |
 
 ## Contato
 
