@@ -14,7 +14,9 @@ const CODE_LINES = [
 export function About() {
   const { t } = useI18n();
   const techTagsData = t('about.techTags');
-  const floatingTech = Array.isArray(techTagsData) ? techTagsData : ['React', 'Next.js', 'Python', 'PostgreSQL'];
+  const floatingTech = (
+    Array.isArray(techTagsData) ? techTagsData : ['React', 'Next.js', 'Python', 'PostgreSQL']
+  ) as string[];
 
   return (
     <section id="about" className="relative overflow-hidden bg-background/88 py-16 backdrop-blur-[2px] sm:py-20 lg:py-24">

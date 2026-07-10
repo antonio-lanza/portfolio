@@ -1,58 +1,24 @@
 # Dependencies
 node_modules/
-.pnp/
-.pnp.cjs
 
 # Environment
 .env
 .env.*
 !.env.example
-!.env.*.example
 
 # Build
 dist/
-build/
-out/
-out-tsc/
-tmp/
-coverage/
 *.tsbuildinfo
-vite.config.*.timestamp-*
 
 # Caches
 .cache/
-.local/
-.turbo/
 .vite/
-.vitest/
 .eslintcache
-.prettiercache
-.npm/
-.pnpm-store/
 
 # Logs
-logs/
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
-
-# Runtime / DB
-*.pid
-*.seed
-*.sqlite
-*.sqlite3
-*.db
-
-# Credentials
-*.pem
-*.key
-*.p12
-*.pfx
-credentials.*
-secrets.*
-service-account*.json
 
 # IDE / OS
 .idea/
@@ -62,8 +28,5 @@ service-account*.json
 .DS_Store
 Thumbs.db
 
-# Deploy / local tooling
+# Deploy
 .vercel
-.replit
-.replitignore
-**/.replit-artifact/

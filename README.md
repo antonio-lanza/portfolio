@@ -18,41 +18,20 @@ Site pessoal e portfólio de **Antônio Pernoncini Lanza**, desenvolvedor full s
 Requisitos: **Node.js 20+** e **pnpm 10**.
 
 ```bash
-# na raiz do repositório
-cd Portfolio
 pnpm install
-pnpm --filter @workspace/portfolio run dev
+pnpm dev
 ```
 
-O app sobe em `http://localhost:3005` (porta configurável via `PORT` no `.env`).
+O app sobe em `http://localhost:3005`.
 
-Copie o exemplo de env se precisar:
-
-```bash
-cp artifacts/portfolio/.env.example artifacts/portfolio/.env
-```
-
-## Estrutura
-
-```text
-.
-├── Portfolio/
-│   ├── artifacts/
-│   │   └── portfolio/               # app do site (Vite + React)
-│   └── scripts/
-├── package.json
-├── README.md
-├── LICENSE
-└── vercel.json
-```
-
-## Scripts úteis
+## Scripts
 
 | Comando | Descrição |
 |--------|-----------|
-| `pnpm --filter @workspace/portfolio run dev` | Dev server do site |
-| `pnpm --filter @workspace/portfolio run build` | Build de produção |
-| `pnpm run typecheck` | Typecheck |
+| `pnpm dev` | Dev server |
+| `pnpm build` | Build de produção |
+| `pnpm preview` | Preview do build |
+| `pnpm typecheck` | Typecheck |
 
 ## Contato
 
