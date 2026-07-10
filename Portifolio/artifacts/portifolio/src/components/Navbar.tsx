@@ -26,9 +26,39 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    if (!mobileMenuOpen) return;
+
+    const scrollY = window.scrollY;
+    const html = document.documentElement;
+    const { body } = document;
+    const previous = {
+      htmlOverflow: html.style.overflow,
+      bodyOverflow: body.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyWidth: body.style.width,
+      bodyTouchAction: body.style.touchAction,
+    };
+
+    html.style.overflow = 'hidden';
+    body.style.overflow = 'hidden';
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.width = '100%';
+    body.style.touchAction = 'none';
+
     return () => {
-      document.body.style.overflow = '';
+      html.style.overflow = previous.htmlOverflow;
+      body.style.overflow = previous.bodyOverflow;
+      body.style.position = previous.bodyPosition;
+      body.style.top = previous.bodyTop;
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = previous.bodyWidth;
+      body.style.touchAction = previous.bodyTouchAction;
+      window.scrollTo(0, scrollY);
     };
   }, [mobileMenuOpen]);
 
@@ -47,9 +77,9 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-colors duration-300 ${
+      className={`fixed top-0 z-50 w-full max-w-[100vw] overflow-x-clip transition-colors duration-300 ${
         isScrolled ? 'border-b border-border bg-background/80 shadow-sm backdrop-blur-md' : 'bg-transparent'
-      }`}
+      } ${mobileMenuOpen ? 'max-md:border-b max-md:border-border max-md:bg-background' : ''}`}
     >
       <div className="entrance-nav mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6 lg:px-8">
         <a href="#" className="group flex min-w-0 items-center gap-2 text-foreground outline-none">
@@ -190,9 +220,10 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: easeOut }}
-            className="fixed inset-x-0 top-14 bottom-0 z-40 flex h-[calc(100dvh-3.5rem)] w-full flex-col bg-background md:hidden sm:top-16 sm:h-[calc(100dvh-4rem)]"
+            className="fixed inset-x-0 top-14 bottom-0 z-40 overflow-x-hidden overscroll-none bg-background md:hidden sm:top-16"
+            style={{ maxWidth: '100vw' }}
           >
-            <nav className="flex h-full w-full flex-col overflow-y-auto">
+            <nav className="flex h-full w-full max-w-full flex-col overflow-x-hidden overflow-y-auto overscroll-contain">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.id}
@@ -201,7 +232,7 @@ export function Navbar() {
                     setMobileMenuOpen(false);
                     setLanguageDropdownOpen(false);
                   }}
-                  className="flex min-h-14 w-full flex-1 items-center border-b border-border/50 px-4 text-base font-medium text-muted-foreground active:bg-muted/40 active:text-foreground sm:px-6 sm:text-lg"
+                  className="flex min-h-14 w-full max-w-full shrink-0 items-center border-b border-border/50 px-4 text-base font-medium text-muted-foreground active:bg-muted/40 active:text-foreground sm:px-6 sm:text-lg"
                 >
                   {t(`nav.${link.key}`) as string}
                 </a>
