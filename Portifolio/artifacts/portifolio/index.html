@@ -4,19 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
 
+    <!-- Primary SEO (invisible to users; used by search engines & social previews) -->
     <title>Antônio Lanza | Programador Full Stack em Passo Fundo</title>
     <meta
       name="description"
-      content="Antônio Lanza — programador Full Stack em Passo Fundo (RS). Desenvolvimento web com React, Next.js, Python, Flask e PostgreSQL. Portfólio de projetos em produção."
+      content="Antônio Lanza (Antonio Lanza / Lanza) — programador e desenvolvedor Full Stack em Passo Fundo, RS. React, Next.js, Python, Flask, FastAPI e PostgreSQL. Portfólio com projetos em produção."
     />
     <meta
       name="keywords"
-      content="Antônio Lanza, Antonio Lanza, Lanza, programador Passo Fundo, desenvolvedor Passo Fundo, Full Stack Passo Fundo, React Passo Fundo, programador RS, desenvolvedor web Passo Fundo"
+      content="Antônio Lanza, Antonio Lanza, Lanza, Antônio Pernoncini, programador Passo Fundo, desenvolvedor Passo Fundo, programador Full Stack Passo Fundo, desenvolvedor web Passo Fundo, Full Stack RS, React Passo Fundo, Next.js Passo Fundo, programador Rio Grande do Sul"
     />
     <meta name="author" content="Antônio Lanza" />
+    <meta name="creator" content="Antônio Lanza" />
+    <meta name="publisher" content="Antônio Lanza" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow" />
     <meta name="theme-color" content="#0b1120" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Local SEO -->
     <meta name="geo.region" content="BR-RS" />
     <meta name="geo.placename" content="Passo Fundo" />
     <meta name="geo.position" content="-28.2612;-52.4083" />
@@ -27,8 +36,13 @@
     <link rel="alternate" hreflang="en" href="https://www.antoniolanza.com/" />
     <link rel="alternate" hreflang="es" href="https://www.antoniolanza.com/" />
     <link rel="alternate" hreflang="x-default" href="https://www.antoniolanza.com/" />
+    <link rel="me" href="https://github.com/AntonioLanzaDesenvolvedor" />
+    <link rel="me" href="https://www.linkedin.com/in/antoniopernoncini/" />
+    <link rel="author" href="https://www.antoniolanza.com/" />
+    <link rel="sitemap" type="application/xml" href="https://www.antoniolanza.com/sitemap.xml" />
 
-    <meta property="og:type" content="website" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:locale:alternate" content="es_ES" />
@@ -37,13 +51,19 @@
     <meta property="og:title" content="Antônio Lanza | Programador Full Stack em Passo Fundo" />
     <meta
       property="og:description"
-      content="Programador Full Stack em Passo Fundo (RS). React, Next.js, Python e sistemas em produção. Conheça o portfólio de Antônio Lanza."
+      content="Programador Full Stack em Passo Fundo (RS). React, Next.js, Python e sistemas em produção. Portfólio de Antônio Lanza."
     />
     <meta property="og:image" content="https://www.antoniolanza.com/opengraph.jpg" />
+    <meta property="og:image:secure_url" content="https://www.antoniolanza.com/opengraph.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Antônio Lanza — Desenvolvedor Full Stack" />
+    <meta property="og:image:alt" content="Antônio Lanza — Desenvolvedor Full Stack em Passo Fundo" />
+    <meta property="profile:first_name" content="Antônio" />
+    <meta property="profile:last_name" content="Lanza" />
+    <meta property="profile:username" content="antoniolanza" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Antônio Lanza | Programador Full Stack em Passo Fundo" />
     <meta
@@ -51,18 +71,24 @@
       content="Programador Full Stack em Passo Fundo (RS). React, Next.js, Python e sistemas em produção."
     />
     <meta name="twitter:image" content="https://www.antoniolanza.com/opengraph.jpg" />
+    <meta name="twitter:image:alt" content="Antônio Lanza — Desenvolvedor Full Stack" />
+    <meta name="twitter:url" content="https://www.antoniolanza.com/" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/images/avatar.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="preload" as="image" href="/images/hero-bg.png" />
+    <link rel="preload" as="image" href="/opengraph.jpg" />
 
     <style>
       .entrance-hero {
@@ -83,24 +109,52 @@
             "@id": "https://www.antoniolanza.com/#website",
             "url": "https://www.antoniolanza.com/",
             "name": "Antônio Lanza",
-            "alternateName": ["Antonio Lanza", "Lanza", "Antônio.dev"],
-            "description": "Portfólio de Antônio Lanza, programador Full Stack em Passo Fundo, RS.",
+            "alternateName": [
+              "Antonio Lanza",
+              "Lanza",
+              "Antônio.dev",
+              "Antônio Lanza Desenvolvedor",
+              "Antonio Lanza Full Stack"
+            ],
+            "description": "Portfólio oficial de Antônio Lanza, programador Full Stack em Passo Fundo, Rio Grande do Sul.",
             "inLanguage": ["pt-BR", "en", "es"],
-            "publisher": {
-              "@id": "https://www.antoniolanza.com/#person"
-            }
+            "publisher": { "@id": "https://www.antoniolanza.com/#person" },
+            "about": { "@id": "https://www.antoniolanza.com/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://www.antoniolanza.com/#profilepage",
+            "url": "https://www.antoniolanza.com/",
+            "name": "Antônio Lanza | Programador Full Stack em Passo Fundo",
+            "isPartOf": { "@id": "https://www.antoniolanza.com/#website" },
+            "about": { "@id": "https://www.antoniolanza.com/#person" },
+            "mainEntity": { "@id": "https://www.antoniolanza.com/#person" },
+            "inLanguage": "pt-BR"
           },
           {
             "@type": "Person",
             "@id": "https://www.antoniolanza.com/#person",
             "name": "Antônio Lanza",
-            "alternateName": ["Antonio Lanza", "Lanza", "Antônio Pernoncini Lanza"],
+            "givenName": "Antônio",
+            "familyName": "Lanza",
+            "alternateName": [
+              "Antonio Lanza",
+              "Lanza",
+              "Antônio Pernoncini",
+              "Antônio Pernoncini Lanza",
+              "Antonio Pernoncini Lanza"
+            ],
             "url": "https://www.antoniolanza.com/",
-            "image": "https://www.antoniolanza.com/images/profileportifolio.png",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://www.antoniolanza.com/images/profileportifolio.png",
+              "caption": "Antônio Lanza"
+            },
             "jobTitle": "Desenvolvedor Full Stack",
-            "description": "Programador Full Stack em Passo Fundo (RS), especializado em React, Next.js, Python, Flask, FastAPI e PostgreSQL.",
+            "description": "Programador Full Stack em Passo Fundo (RS), especializado em React, Next.js, TypeScript, Python, Flask, FastAPI e PostgreSQL.",
             "email": "mailto:pernonciniantonio@gmail.com",
             "telephone": "+55-54-99603-1329",
+            "nationality": { "@type": "Country", "name": "Brasil" },
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Passo Fundo",
@@ -110,6 +164,12 @@
             "homeLocation": {
               "@type": "Place",
               "name": "Passo Fundo, Rio Grande do Sul, Brasil",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Passo Fundo",
+                "addressRegion": "RS",
+                "addressCountry": "BR"
+              },
               "geo": {
                 "@type": "GeoCoordinates",
                 "latitude": -28.2612,
@@ -122,20 +182,28 @@
             ],
             "knowsAbout": [
               "Desenvolvimento Full Stack",
+              "Desenvolvimento Web",
               "React",
               "Next.js",
               "TypeScript",
+              "JavaScript",
               "Python",
               "Flask",
               "FastAPI",
               "PostgreSQL",
               "Supabase",
               "Docker",
-              "Programação em Passo Fundo"
+              "Redis",
+              "Material UI",
+              "Tailwind CSS",
+              "Programação em Passo Fundo",
+              "Desenvolvedor Passo Fundo"
             ],
+            "knowsLanguage": ["pt-BR", "en", "es"],
             "worksFor": {
               "@type": "Organization",
-              "name": "Antônio Lanza — Desenvolvimento de Software"
+              "name": "Antônio Lanza — Desenvolvimento de Software",
+              "url": "https://www.antoniolanza.com/"
             }
           },
           {
@@ -144,29 +212,75 @@
             "name": "Antônio Lanza — Programador Full Stack Passo Fundo",
             "url": "https://www.antoniolanza.com/",
             "image": "https://www.antoniolanza.com/opengraph.jpg",
+            "logo": "https://www.antoniolanza.com/favicon.svg",
             "description": "Serviços de desenvolvimento web Full Stack em Passo Fundo e remoto: aplicações React/Next.js, APIs Python e sistemas sob medida.",
-            "provider": {
-              "@id": "https://www.antoniolanza.com/#person"
-            },
+            "provider": { "@id": "https://www.antoniolanza.com/#person" },
+            "founder": { "@id": "https://www.antoniolanza.com/#person" },
             "areaServed": [
-              {
-                "@type": "City",
-                "name": "Passo Fundo"
-              },
-              {
-                "@type": "State",
-                "name": "Rio Grande do Sul"
-              },
-              {
-                "@type": "Country",
-                "name": "Brasil"
-              }
+              { "@type": "City", "name": "Passo Fundo" },
+              { "@type": "AdministrativeArea", "name": "Rio Grande do Sul" },
+              { "@type": "Country", "name": "Brasil" }
             ],
+            "availableLanguage": ["Portuguese", "English", "Spanish"],
             "serviceType": [
               "Desenvolvimento Full Stack",
               "Desenvolvimento Web",
               "Criação de APIs",
-              "Sistemas sob medida"
+              "Sistemas sob medida",
+              "Landing pages",
+              "Aplicações React e Next.js"
+            ],
+            "priceRange": "$$",
+            "telephone": "+55-54-99603-1329",
+            "email": "pernonciniantonio@gmail.com",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Passo Fundo",
+              "addressRegion": "RS",
+              "addressCountry": "BR"
+            }
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://www.antoniolanza.com/#projects",
+            "name": "Projetos de Antônio Lanza",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "name": "Talentista",
+                  "applicationCategory": "BusinessApplication",
+                  "operatingSystem": "Web",
+                  "description": "ERP SaaS de recrutamento e seleção desenvolvido por Antônio Lanza.",
+                  "author": { "@id": "https://www.antoniolanza.com/#person" }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "name": "SN250",
+                  "applicationCategory": "BusinessApplication",
+                  "operatingSystem": "Web",
+                  "description": "Sistema de gestão de confinamentos e nutrição animal desenvolvido por Antônio Lanza.",
+                  "author": { "@id": "https://www.antoniolanza.com/#person" }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "name": "SN800",
+                  "applicationCategory": "BusinessApplication",
+                  "operatingSystem": "Web",
+                  "description": "Plataforma SaaS multi-tenant de pesagem florestal desenvolvida por Antônio Lanza.",
+                  "author": { "@id": "https://www.antoniolanza.com/#person" }
+                }
+              }
             ]
           }
         ]
@@ -175,20 +289,19 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Crawler fallback only (hidden when JavaScript is enabled) -->
     <noscript>
       <main>
         <h1>Antônio Lanza — Programador Full Stack em Passo Fundo</h1>
         <p>
-          Antônio Lanza (também conhecido como Antonio Lanza ou Lanza) é programador Full Stack em Passo Fundo, Rio
-          Grande do Sul. Desenvolve aplicações web com React, Next.js, Python, Flask, FastAPI e PostgreSQL.
+          Antônio Lanza (Antonio Lanza / Lanza) é programador Full Stack em Passo Fundo, Rio Grande do Sul.
+          Desenvolve aplicações web com React, Next.js, Python, Flask, FastAPI e PostgreSQL.
         </p>
         <p>
-          Portfólio com projetos em produção: Talentista, SN250 e SN800. Contato:
-          <a href="mailto:pernonciniantonio@gmail.com">pernonciniantonio@gmail.com</a>
+          Projetos: Talentista, SN250 e SN800.
+          Contato: <a href="mailto:pernonciniantonio@gmail.com">pernonciniantonio@gmail.com</a>
         </p>
-        <p>
-          <a href="https://www.antoniolanza.com/">https://www.antoniolanza.com</a>
-        </p>
+        <p><a href="https://www.antoniolanza.com/">https://www.antoniolanza.com</a></p>
       </main>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>

@@ -1,5 +1,14 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
 Sitemap: https://www.antoniolanza.com/sitemap.xml
 Host: https://www.antoniolanza.com
