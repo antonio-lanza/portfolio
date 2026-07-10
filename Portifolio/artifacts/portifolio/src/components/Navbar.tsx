@@ -101,9 +101,10 @@ export function Navbar() {
       const btn = mobileLangBtnRef.current;
       if (!btn) return;
       const rect = btn.getBoundingClientRect();
+      const dropdownWidth = 56; // w-14
       setMobileLangPos({
         top: rect.bottom + 8,
-        right: Math.max(8, window.innerWidth - rect.right - 10),
+        right: Math.max(8, window.innerWidth - rect.left - rect.width / 2 - dropdownWidth / 2),
       });
     };
 
@@ -139,9 +140,10 @@ export function Navbar() {
     const btn = mobileLangBtnRef.current;
     if (btn) {
       const rect = btn.getBoundingClientRect();
+      const dropdownWidth = 56; // w-14
       setMobileLangPos({
         top: rect.bottom + 8,
-        right: Math.max(8, window.innerWidth - rect.right - 10),
+        right: Math.max(8, window.innerWidth - rect.left - rect.width / 2 - dropdownWidth / 2),
       });
     }
     setLanguageDropdownOpen((open) => !open);
