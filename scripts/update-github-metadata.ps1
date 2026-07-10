@@ -3,7 +3,7 @@
 
 $ErrorActionPreference = "Stop"
 
-gh repo edit AntonioLanzaDesenvolvedor/portifolio `
+gh repo edit AntonioLanzaDesenvolvedor/portfolio `
   --description "Portfolio pessoal — React, TypeScript, Vite. Site: antoniolanza.com" `
   --homepage "https://www.antoniolanza.com" `
   --add-topic portfolio `
@@ -12,8 +12,4 @@ gh repo edit AntonioLanzaDesenvolvedor/portifolio `
   --add-topic vite `
   --add-topic frontend
 
-# Renomeia o repo para a grafia correta (opcional; atualiza a URL do GitHub)
-# Descomente a linha abaixo se quiser renomear portifolio -> portfolio
-# gh repo rename portfolio --yes
-
-Write-Host "Metadados atualizados. Confira: https://github.com/AntonioLanzaDesenvolvedor/portifolio"
+Write-Host "Metadados atualizados. Confira: https://github.com/AntonioLanzaDesenvolvedor/portfolio"
