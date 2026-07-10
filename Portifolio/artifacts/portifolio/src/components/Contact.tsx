@@ -21,9 +21,9 @@ export function Contact() {
   const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${subject}&body=${body}`;
 
   return (
-    <section id="contact" className="relative overflow-hidden border-t border-border/50 bg-secondary/15 py-16 backdrop-blur-[2px] sm:py-20 lg:py-24">
-      <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/10 blur-[100px]" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 rounded-full bg-blue-500/10 blur-[100px]" />
+    <section id="contact" className="relative overflow-hidden border-t border-border/50 bg-secondary/15 py-16 sm:py-20 sm:backdrop-blur-[2px] lg:py-24">
+      <div className="pointer-events-none absolute right-0 top-0 hidden h-96 w-96 rounded-full bg-primary/10 blur-[100px] sm:block" />
+      <div className="pointer-events-none absolute bottom-0 left-0 hidden h-96 w-96 rounded-full bg-blue-500/10 blur-[100px] sm:block" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <SectionHeading title={t('contact.title') as string} subtitle={t('contact.subtitle') as string} />

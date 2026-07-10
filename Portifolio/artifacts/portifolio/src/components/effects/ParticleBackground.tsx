@@ -11,7 +11,8 @@ type Particle = {
 };
 
 const CONNECTION_DISTANCE = 130;
-const PARTICLE_DENSITY = 11000;
+const PARTICLE_DENSITY_DESKTOP = 11000;
+const PARTICLE_DENSITY_MOBILE = 18000;
 
 function createParticle(width: number, height: number): Particle {
   const speed = Math.random() * 0.22 + 0.06;
@@ -43,6 +44,10 @@ function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
 
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+}
+
 export function ParticleBackground() {
   const ready = useEntrance();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -53,7 +58,7 @@ export function ParticleBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -61,23 +66,34 @@ export function ParticleBackground() {
     let particles: Particle[] = [];
     let intensity = 0;
     let targetIntensity = 0;
+    let mobile = isMobileViewport();
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
+      mobile = isMobileViewport();
+      const dpr = mobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.floor(window.innerWidth * dpr));
+      canvas.height = Math.max(1, Math.floor(window.innerHeight * dpr));
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const count = Math.floor((window.innerWidth * window.innerHeight) / PARTICLE_DENSITY);
-      particles = Array.from({ length: Math.min(Math.max(count, 45), 100) }, () =>
+      const density = mobile ? PARTICLE_DENSITY_MOBILE : PARTICLE_DENSITY_DESKTOP;
+      const count = Math.floor((window.innerWidth * window.innerHeight) / density);
+      const minCount = mobile ? 22 : 45;
+      const maxCount = mobile ? 36 : 100;
+      particles = Array.from({ length: Math.min(Math.max(count, minCount), maxCount) }, () =>
         createParticle(window.innerWidth, window.innerHeight),
       );
+
+      if (mobile) {
+        targetIntensity = 0;
+        intensity = 0;
+      }
     };
 
     const updateTarget = () => {
-      targetIntensity = getContactIntensity();
+      // Contact boost is desktop-only — on mobile it tanks scroll.
+      targetIntensity = mobile ? 0 : getContactIntensity();
       if (prefersReducedMotion) {
         intensity = targetIntensity;
         draw();
@@ -88,20 +104,22 @@ export function ParticleBackground() {
       const w = window.innerWidth;
       const h = window.innerHeight;
 
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && !mobile) {
         intensity += (targetIntensity - intensity) * 0.08;
         if (Math.abs(targetIntensity - intensity) < 0.002) intensity = targetIntensity;
+      } else if (mobile) {
+        intensity = 0;
       } else {
         intensity = targetIntensity;
       }
 
       const t = intensity;
-      const connectionDistance = lerp(CONNECTION_DISTANCE, 148, t);
-      const lineAlphaMax = lerp(0.1, 0.2, t);
-      const lineWidth = lerp(0.5, 0.7, t);
-      const sizeBoost = lerp(1, 1.2, t);
-      const opacityBoost = lerp(1, 1.65, t);
-      const glowStrength = t * 0.14;
+      const connectionDistance = mobile ? 90 : lerp(CONNECTION_DISTANCE, 148, t);
+      const lineAlphaMax = mobile ? 0.07 : lerp(0.1, 0.2, t);
+      const lineWidth = mobile ? 0.5 : lerp(0.5, 0.7, t);
+      const sizeBoost = mobile ? 1 : lerp(1, 1.2, t);
+      const opacityBoost = mobile ? 1 : lerp(1, 1.65, t);
+      const glowStrength = mobile ? 0 : t * 0.14;
 
       ctx.clearRect(0, 0, w, h);
 
@@ -118,6 +136,7 @@ export function ParticleBackground() {
         const size = p.size * sizeBoost;
         const alpha = Math.min(1, p.opacity * opacityBoost);
 
+        // Soft glow only on desktop contact boost — never on mobile.
         if (glowStrength > 0.01) {
           ctx.beginPath();
           ctx.arc(p.x, p.y, size * 2.4, 0, Math.PI * 2);
@@ -128,14 +147,16 @@ export function ParticleBackground() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
         ctx.fillStyle =
-          t > 0.05
+          !mobile && t > 0.05
             ? `rgba(186, 230, 253, ${alpha})`
             : `rgba(125, 211, 252, ${alpha})`;
         ctx.fill();
       }
 
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
+      // Skip every other pair check on mobile to cut O(n²) cost.
+      const step = mobile ? 2 : 1;
+      for (let i = 0; i < particles.length; i += step) {
+        for (let j = i + 1; j < particles.length; j += step) {
           const a = particles[i];
           const b = particles[j];
           const dx = a.x - b.x;
