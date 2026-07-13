@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useI18n, type Language } from '@/i18n/i18n';
 
 const SITE_URL = 'https://www.antoniolanza.com/';
-const OG_IMAGE = 'https://www.antoniolanza.com/images/hero-bg.png';
+const OG_IMAGE = 'https://www.antoniolanza.com/images/og-preview.png';
 
 const SEO_BY_LANG: Record<
   Language,
