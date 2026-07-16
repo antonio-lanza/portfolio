@@ -44,8 +44,10 @@ export function Navbar() {
 
     const prev = {
       htmlOverflow: html.style.overflow,
+      htmlTouchAction: html.style.touchAction,
       htmlOverscroll: html.style.overscrollBehavior,
       bodyOverflow: body.style.overflow,
+      bodyTouchAction: body.style.touchAction,
       bodyPosition: body.style.position,
       bodyTop: body.style.top,
       bodyLeft: body.style.left,
@@ -55,8 +57,10 @@ export function Navbar() {
     };
 
     html.style.overflow = 'hidden';
+    html.style.touchAction = 'none';
     html.style.overscrollBehavior = 'none';
     body.style.overflow = 'hidden';
+    body.style.touchAction = 'none';
     body.style.position = 'fixed';
     body.style.top = `-${scrollY}px`;
     body.style.left = '0';
@@ -64,25 +68,21 @@ export function Navbar() {
     body.style.width = '100%';
     body.style.overscrollBehavior = 'none';
 
-    const blockTouchScroll = (event: TouchEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (target?.closest('[data-lang-dropdown], a, button')) return;
+    const blockScrollGesture = (event: TouchEvent | WheelEvent) => {
       event.preventDefault();
     };
 
-    const blockWheel = (event: WheelEvent) => {
-      event.preventDefault();
-    };
-
-    document.addEventListener('touchmove', blockTouchScroll, { passive: false });
-    document.addEventListener('wheel', blockWheel, { passive: false });
+    document.addEventListener('touchmove', blockScrollGesture, { passive: false });
+    document.addEventListener('wheel', blockScrollGesture, { passive: false });
 
     return () => {
-      document.removeEventListener('touchmove', blockTouchScroll);
-      document.removeEventListener('wheel', blockWheel);
+      document.removeEventListener('touchmove', blockScrollGesture);
+      document.removeEventListener('wheel', blockScrollGesture);
       html.style.overflow = prev.htmlOverflow;
+      html.style.touchAction = prev.htmlTouchAction;
       html.style.overscrollBehavior = prev.htmlOverscroll;
       body.style.overflow = prev.bodyOverflow;
+      body.style.touchAction = prev.bodyTouchAction;
       body.style.position = prev.bodyPosition;
       body.style.top = prev.bodyTop;
       body.style.left = prev.bodyLeft;
@@ -305,9 +305,10 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: easeOut }}
-            className="fixed inset-x-0 top-14 bottom-0 z-40 overflow-hidden overscroll-none bg-background md:hidden sm:top-16"
+            className="fixed inset-x-0 top-14 bottom-0 z-40 touch-none overflow-hidden overscroll-none bg-background md:hidden sm:top-16"
+            onTouchMove={(event) => event.preventDefault()}
           >
-            <nav className="flex h-full w-full flex-col overflow-hidden">
+            <nav className="flex h-full w-full flex-col overflow-hidden overscroll-none">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.id}
