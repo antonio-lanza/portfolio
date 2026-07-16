@@ -34,39 +34,27 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Hard-lock page scroll while mobile menu is open
+  // Lock page scroll while mobile menu is open — without resetting scrollY
+  // (position:fixed + scrollTo was causing open/close jump on mobile)
   useEffect(() => {
     if (!mobileMenuOpen) return;
 
-    const scrollY = window.scrollY;
     const html = document.documentElement;
     const { body } = document;
 
     const prev = {
       htmlOverflow: html.style.overflow,
-      htmlTouchAction: html.style.touchAction,
       htmlOverscroll: html.style.overscrollBehavior,
       bodyOverflow: body.style.overflow,
-      bodyTouchAction: body.style.touchAction,
-      bodyPosition: body.style.position,
-      bodyTop: body.style.top,
-      bodyLeft: body.style.left,
-      bodyRight: body.style.right,
-      bodyWidth: body.style.width,
       bodyOverscroll: body.style.overscrollBehavior,
+      bodyTouchAction: body.style.touchAction,
     };
 
     html.style.overflow = 'hidden';
-    html.style.touchAction = 'none';
     html.style.overscrollBehavior = 'none';
     body.style.overflow = 'hidden';
-    body.style.touchAction = 'none';
-    body.style.position = 'fixed';
-    body.style.top = `-${scrollY}px`;
-    body.style.left = '0';
-    body.style.right = '0';
-    body.style.width = '100%';
     body.style.overscrollBehavior = 'none';
+    body.style.touchAction = 'none';
 
     const blockScrollGesture = (event: TouchEvent | WheelEvent) => {
       event.preventDefault();
@@ -79,17 +67,10 @@ export function Navbar() {
       document.removeEventListener('touchmove', blockScrollGesture);
       document.removeEventListener('wheel', blockScrollGesture);
       html.style.overflow = prev.htmlOverflow;
-      html.style.touchAction = prev.htmlTouchAction;
       html.style.overscrollBehavior = prev.htmlOverscroll;
       body.style.overflow = prev.bodyOverflow;
-      body.style.touchAction = prev.bodyTouchAction;
-      body.style.position = prev.bodyPosition;
-      body.style.top = prev.bodyTop;
-      body.style.left = prev.bodyLeft;
-      body.style.right = prev.bodyRight;
-      body.style.width = prev.bodyWidth;
       body.style.overscrollBehavior = prev.bodyOverscroll;
-      window.scrollTo(0, scrollY);
+      body.style.touchAction = prev.bodyTouchAction;
     };
   }, [mobileMenuOpen]);
 
