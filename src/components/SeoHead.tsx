@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useI18n, type Language } from '@/i18n/i18n';
 
 const SITE_URL = 'https://www.antoniolanza.com/';
-const OG_IMAGE = 'https://www.antoniolanza.com/images/og-preview.png';
 
 const SEO_BY_LANG: Record<
   Language,
@@ -78,12 +77,15 @@ export function SeoHead() {
     upsertMeta('property', 'og:description', seo.description);
     upsertMeta('property', 'og:locale', seo.locale);
     upsertMeta('property', 'og:url', SITE_URL);
-    upsertMeta('property', 'og:image', OG_IMAGE);
     upsertMeta('property', 'og:type', 'profile');
+    upsertMeta('name', 'twitter:card', 'summary');
     upsertMeta('name', 'twitter:title', seo.title);
     upsertMeta('name', 'twitter:description', seo.description);
-    upsertMeta('name', 'twitter:image', OG_IMAGE);
     upsertMeta('name', 'twitter:url', SITE_URL);
+
+    document.head
+      .querySelectorAll('meta[property^="og:image"], meta[name="twitter:image"], meta[name="twitter:image:alt"]')
+      .forEach((el) => el.remove());
     upsertLink('canonical', SITE_URL);
   }, [seo]);
 
