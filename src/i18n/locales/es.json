@@ -109,16 +109,16 @@
       {
         "id": "sn800",
         "title": "SN800",
-        "eyebrow": "Full Stack · Plataforma de Pesaje Forestal",
+        "eyebrow": "Full Stack · Pesaje Forestal",
         "period": "2025 — Presente",
-        "description": "Plataforma SaaS multi-tenant para gestión de operaciones de pesaje forestal, desarrollada para centralizar registros, monitoreo operacional, informes e integración en tiempo real con balanzas.",
+        "description": "Sistema para operaciones de pesaje forestal: controla el flujo de camiones en la balanza, organiza la operación del día a día y entrega monitoreo e informes en tiempo real.",
         "highlights": [
-          "Desarrollo de la aplicación en Next.js con soporte para PT/EN/ES.",
-          "Landing page institucional y panel administrativo de la plataforma.",
-          "API REST con Route Handlers para registros, dashboards, informes y administración.",
-          "Arquitectura multi-tenant en Supabase con RLS y control de acceso por perfiles.",
-          "Edge Functions para ingestión de pesajes con validación e idempotencia.",
-          "Gestión de balanzas, equipos, camiones, materiales y operaciones."
+          "Aplicación en Next.js con interfaz en portugués, inglés y español.",
+          "Panel para seguir pesajes, operaciones e indicadores del patio.",
+          "API para registros, dashboards, informes y administración de la plataforma.",
+          "Multi-tenant en Supabase con aislamiento de datos y acceso por perfil.",
+          "Recepción de pesajes en tiempo real vía Edge Functions, sin registros duplicados.",
+          "Gestión de balanzas, equipos, camiones, materiales y operaciones de campo."
         ],
         "tags": ["Next.js", "TypeScript", "Supabase"],
         "projectUrl": "https://sn800-web.vercel.app"

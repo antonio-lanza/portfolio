@@ -109,16 +109,16 @@
       {
         "id": "sn800",
         "title": "SN800",
-        "eyebrow": "Full Stack · Forestry Weighing Platform",
+        "eyebrow": "Full Stack · Forestry Weighing",
         "period": "2025 — Present",
-        "description": "Multi-tenant SaaS platform for forestry weighing operations, built to centralize registrations, operational monitoring, reports, and real-time integration with scales.",
+        "description": "System for forestry weighing operations: it tracks truck flow on the scale, keeps day-to-day operations organized, and delivers real-time monitoring and reports.",
         "highlights": [
-          "Application development in Next.js with PT/EN/ES support.",
-          "Institutional landing page and platform admin panel.",
-          "REST API with Route Handlers for registrations, dashboards, reports, and administration.",
-          "Multi-tenant architecture on Supabase with RLS and role-based access control.",
-          "Edge Functions for weighing ingestion with validation and idempotency.",
-          "Management of scales, equipment, trucks, materials, and operations."
+          "Next.js app with Portuguese, English, and Spanish interface.",
+          "Dashboard to follow weighings, yard operations, and key indicators.",
+          "API for registrations, dashboards, reports, and platform administration.",
+          "Multi-tenant setup on Supabase with data isolation and role-based access.",
+          "Real-time weighing intake via Edge Functions, without duplicate records.",
+          "Management of scales, equipment, trucks, materials, and field operations."
         ],
         "tags": ["Next.js", "TypeScript", "Supabase"],
         "projectUrl": "https://sn800-web.vercel.app"
