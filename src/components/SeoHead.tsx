@@ -16,7 +16,7 @@ const SEO_BY_LANG: Record<
   pt: {
     lang: 'pt-BR',
     locale: 'pt_BR',
-    title: 'Antônio Lanza | Programador Full Stack em Passo Fundo',
+    title: 'Antônio Lanza | Programador Full Stack',
     description:
       'Antônio Lanza (Antonio Lanza / Lanza) — programador e desenvolvedor Full Stack em Passo Fundo, RS. React, Next.js, Python, Flask, FastAPI e PostgreSQL. Portfólio com projetos em produção.',
     keywords:
@@ -25,7 +25,7 @@ const SEO_BY_LANG: Record<
   en: {
     lang: 'en',
     locale: 'en_US',
-    title: 'Antônio Lanza | Full Stack Developer in Passo Fundo',
+    title: 'Antônio Lanza | Full Stack Developer',
     description:
       'Antônio Lanza (Antonio Lanza / Lanza) — Full Stack developer in Passo Fundo, Brazil. React, Next.js, Python, Flask, FastAPI, and PostgreSQL. Production portfolio.',
     keywords:
@@ -34,7 +34,7 @@ const SEO_BY_LANG: Record<
   es: {
     lang: 'es',
     locale: 'es_ES',
-    title: 'Antônio Lanza | Programador Full Stack en Passo Fundo',
+    title: 'Antônio Lanza | Programador Full Stack',
     description:
       'Antônio Lanza (Antonio Lanza / Lanza) — programador Full Stack en Passo Fundo, Brasil. React, Next.js, Python, Flask, FastAPI y PostgreSQL. Portafolio en producción.',
     keywords:
